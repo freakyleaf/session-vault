@@ -1,3 +1,5 @@
+.env
+
 *.log
 logs
 pnpm-debug.log*
