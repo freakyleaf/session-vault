@@ -1,0 +1,2 @@
+pnpm run lint:scripts
+pnpm run lint:styles

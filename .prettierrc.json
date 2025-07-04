@@ -1,0 +1,6 @@
+{
+  "quoteProps": "consistent",
+  "singleAttributePerLine": true,
+  "singleQuote": true,
+  "trailingComma": "all"
+}
