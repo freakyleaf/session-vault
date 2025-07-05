@@ -9,9 +9,6 @@ import PageNotFound from '@backend-src/pages/PageNotFound';
 import PageSessions from '@backend-src/pages/PageSessions';
 import PageSongs from '@backend-src/pages/PageSongs';
 
-import 'primeflex/primeflex.css';
-import 'primeicons/primeicons.css';
-
 function AppBackend() {
   return (
     <BrowserRouter>
