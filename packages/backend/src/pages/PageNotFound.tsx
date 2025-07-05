@@ -1,4 +1,4 @@
-import { usePageTitle } from '@backend/hooks/usePageTitle';
+import { usePageTitle } from '@backend-src/hooks/usePageTitle';
 
 function PageNotFound() {
   usePageTitle('Not Found');

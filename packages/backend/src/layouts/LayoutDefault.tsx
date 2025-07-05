@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router';
 
-import PageFooterContent from '@backend/components/PageFooterContent';
-import PageHeaderContent from '@backend/components/PageHeaderContent';
-import PageNavigationContent from '@backend/components/PageNavigationContent';
+import PageFooterContent from '@backend-src/components/PageFooterContent';
+import PageHeaderContent from '@backend-src/components/PageHeaderContent';
+import PageNavigationContent from '@backend-src/components/PageNavigationContent';
 
 function LayoutDefault() {
   return (

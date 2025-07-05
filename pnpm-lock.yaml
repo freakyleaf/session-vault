@@ -143,6 +143,9 @@ importers:
 
   packages/frontend:
     dependencies:
+      primereact:
+        specifier: ^10.9.6
+        version: 10.9.6(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: ^19.1.0
         version: 19.1.0

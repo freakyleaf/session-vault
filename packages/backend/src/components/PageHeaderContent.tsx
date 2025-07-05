@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-import { WEBSITE_NAME } from '@shared/lib/constants';
+import { WEBSITE_NAME } from '@shared-src/lib/constants';
 
 function PageHeaderContent() {
   return (

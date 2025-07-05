@@ -4,15 +4,16 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "paths": {
-      "@backend/*": ["packages/backend/src/*"],
-      "@backend-components/*": ["packages/backend/src/components/*"],
+      "@api-root/*": ["packages/api/*"],
+      "@api-src/*": ["packages/api/src/*"],
       "@backend-root/*": ["packages/backend/*"],
-      "@frontend/*": ["packages/frontend/src/*"],
-      "@frontend-components/*": ["packages/frontend/src/components/*"],
+      "@backend-src/*": ["packages/backend/src/*"],
+      "@database-root/*": ["packages/database/*"],
+      "@database-src/*": ["packages/database/src/*"],
       "@frontend-root/*": ["packages/frontend/*"],
-      "@shared/*": ["packages/shared/src/*"],
-      "@shared-components/*": ["packages/shared/src/components/*"],
-      "@shared-root/*": ["packages/shared/*"]
+      "@frontend-src/*": ["packages/frontend/src/*"],
+      "@shared-root/*": ["packages/shared/*"],
+      "@shared-src/*": ["packages/shared/src/*"]
     },
     "skipLibCheck": true,
     "target": "ES2022",

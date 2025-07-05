@@ -1,18 +1,18 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-import LayoutDefault from '@backend/layouts/LayoutDefault';
+import LayoutDefault from '@backend-src/layouts/LayoutDefault';
 
-import PageAlbums from '@backend/pages/PageAlbums';
-import PageArtists from '@backend/pages/PageArtists';
-import PageHome from '@backend/pages/PageHome';
-import PageNotFound from '@backend/pages/PageNotFound';
-import PageSessions from '@backend/pages/PageSessions';
-import PageSongs from '@backend/pages/PageSongs';
+import PageAlbums from '@backend-src/pages/PageAlbums';
+import PageArtists from '@backend-src/pages/PageArtists';
+import PageHome from '@backend-src/pages/PageHome';
+import PageNotFound from '@backend-src/pages/PageNotFound';
+import PageSessions from '@backend-src/pages/PageSessions';
+import PageSongs from '@backend-src/pages/PageSongs';
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 
-function BackendApp() {
+function AppBackend() {
   return (
     <BrowserRouter>
       <Routes>
@@ -51,4 +51,4 @@ function BackendApp() {
   );
 }
 
-export default BackendApp;
+export default AppBackend;
