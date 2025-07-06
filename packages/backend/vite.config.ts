@@ -3,14 +3,17 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
+const envDir = resolve(process.cwd(), '../', '../'); // Repo root
+
 export default defineConfig({
+  envDir,
   plugins: [
     AutoImport({
       dirs: [
-        './src/components',
-        './src/hooks',
-        '../shared/src/components',
-        '../shared/src/hooks',
+        './src/components/**',
+        './src/hooks/**',
+        '../shared/src/components/**',
+        '../shared/src/hooks/**',
       ],
       dts: true, // Generates auto-imports.d.ts
       imports: ['react', 'react-router-dom'],
