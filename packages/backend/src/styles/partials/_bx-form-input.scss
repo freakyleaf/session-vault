@@ -1,0 +1,7 @@
+@use '@shared-styles/variables/sx-sizes' as *;
+
+.bx-form-input {
+  display: flex;
+  flex-direction: column;
+  gap: $size-2;
+}
