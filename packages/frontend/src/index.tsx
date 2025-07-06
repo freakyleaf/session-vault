@@ -8,6 +8,7 @@ import 'primeflex/primeflex.css';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 import '@frontend-styles/index.scss';
+import '@shared-styles/index.scss';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

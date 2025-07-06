@@ -8,24 +8,24 @@ function LayoutDefault() {
   return (
     <div className="layout layout--default min-h-screen flex flex-column">
       <header className="layout__header">
-        <div className="container">
+        <SxContainer>
           <PageHeaderContent />
-        </div>
+        </SxContainer>
       </header>
       <nav className="layout__navigation">
-        <div className="container">
+        <SxContainer>
           <PageNavigationContent />
-        </div>
+        </SxContainer>
       </nav>
       <main className="layout__main flex-grow-1">
-        <div className="container">
+        <SxContainer>
           <Outlet />
-        </div>
+        </SxContainer>
       </main>
       <footer className="layout__footer">
-        <div className="container">
+        <SxContainer>
           <PageFooterContent />
-        </div>
+        </SxContainer>
       </footer>
     </div>
   );

@@ -1,8 +1,8 @@
 function FrontendApp() {
   return (
-    <div className="container">
+    <SxContainer>
       <h1>Frontend App</h1>
-    </div>
+    </SxContainer>
   );
 }
 
