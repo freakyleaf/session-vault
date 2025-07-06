@@ -1,9 +1,22 @@
+import AutoImport from 'unplugin-auto-import/vite';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    AutoImport({
+      dirs: [
+        './src/components',
+        './src/hooks',
+        '../shared/src/components',
+        '../shared/src/hooks',
+      ],
+      dts: true, // Generates auto-imports.d.ts
+      imports: ['react', 'react-router-dom'],
+    }),
+    react(),
+  ],
   resolve: {
     alias: {
       '@api-root': resolve(__dirname, '../', 'api'),
