@@ -1,3 +1,8 @@
+export const INPUT_TYPE_EMAIL = 'email';
+export const INPUT_TYPE_NUMBER = 'number';
+export const INPUT_TYPE_PASSWORD = 'password';
+export const INPUT_TYPE_TEXT = 'text';
+
 export const MODEL_ALBUM = 'Album';
 export const MODEL_ARTIST = 'Artist';
 export const MODEL_SESSION = 'Session';
