@@ -7,6 +7,7 @@
 export {}
 declare global {
   const AppBackend: typeof import('./src/components/AppBackend')['default']
+  const BxAccessDenied: typeof import('./src/components/BxAccessDenied')['default']
   const BxFormInput: typeof import('./src/components/BxFormInput')['default']
   const BxFormLogIn: typeof import('./src/components/forms/BxFormLogIn')['default']
   const BxFormNewUser: typeof import('./src/components/forms/BxFormUserCreate')['default']
@@ -15,6 +16,8 @@ declare global {
   const BxPageFooterContent: typeof import('./src/components/BxPageFooterContent')['default']
   const BxPageHeaderContent: typeof import('./src/components/BxPageHeaderContent')['default']
   const BxPageNavigationContent: typeof import('./src/components/BxPageNavigationContent')['default']
+  const BxRouteGuardAdmin: typeof import('./src/components/BxRouteGuardAdmin')['default']
+  const BxRouteGuardAuthenticated: typeof import('./src/components/BxRouteGuardAuthenticated')['default']
   const FormNewUser: typeof import('./src/components/forms/BxFormUserCreate')['default']
   const Link: typeof import('react-router-dom')['Link']
   const NavLink: typeof import('react-router-dom')['NavLink']
@@ -64,5 +67,6 @@ declare global {
   const useTransition: typeof import('react')['useTransition']
   const useUserCount: typeof import('../shared/src/hooks/useUserCount')['useUserCount']
   const useUserCredentials: typeof import('../shared/src/hooks/useUserCredentials')['useUserCredentials']
+  const useUserRole: typeof import('./src/hooks/useUserRole')['useUserRole']
   const useUsers: typeof import('../shared/src/hooks/useUserCredentials')['useUsers']
 }

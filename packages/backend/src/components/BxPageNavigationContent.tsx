@@ -1,13 +1,21 @@
+import { useAuth, useClerk } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router';
 
+import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
+
+import { useUserRole } from '@backend-src/hooks/useUserRole';
 
 import type { MenuItem } from 'primereact/menuitem';
 
 function BxPageNavigationContent() {
   const navigate = useNavigate();
 
-  const items: MenuItem[] = [
+  const { isAdmin } = useUserRole();
+  const { isSignedIn } = useAuth();
+  const { signOut } = useClerk();
+
+  const globalMenuItems: MenuItem[] = [
     {
       command: () => {
         void navigate('/');
@@ -15,6 +23,9 @@ function BxPageNavigationContent() {
       icon: 'pi pi-home',
       label: 'Home',
     },
+  ];
+
+  const authenticatedAdminMenuItems: MenuItem[] = [
     {
       command: () => {
         void navigate('/artists');
@@ -22,6 +33,9 @@ function BxPageNavigationContent() {
       icon: 'pi pi-users',
       label: 'Artists',
     },
+  ];
+
+  const authenticatedGlobalMenuItems: MenuItem[] = [
     {
       command: () => {
         void navigate('/albums');
@@ -45,9 +59,35 @@ function BxPageNavigationContent() {
     },
   ];
 
+  let items: MenuItem[] = globalMenuItems;
+
+  if (isSignedIn) {
+    if (isAdmin) {
+      items = [
+        ...items,
+        ...authenticatedAdminMenuItems,
+        ...authenticatedGlobalMenuItems,
+      ];
+    } else {
+      items = [...items, ...authenticatedGlobalMenuItems];
+    }
+  }
+
+  const end = isSignedIn && (
+    <Button
+      label="Sign Out"
+      severity="secondary"
+      onClick={() => void signOut()}
+      outlined
+    />
+  );
+
   return (
     <div className="bx-page-navigation-content">
-      <Menubar model={items} />
+      <Menubar
+        end={end}
+        model={items}
+      />
     </div>
   );
 }

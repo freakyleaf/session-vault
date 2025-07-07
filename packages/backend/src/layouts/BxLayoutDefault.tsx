@@ -4,7 +4,7 @@ import BxPageFooterContent from '@backend-src/components/BxPageFooterContent';
 import BxPageHeaderContent from '@backend-src/components/BxPageHeaderContent';
 import BxPageNavigationContent from '@backend-src/components/BxPageNavigationContent';
 
-function LayoutDefault() {
+function BxLayoutDefault() {
   return (
     <div className="bx-layout bx-layout--default min-h-screen">
       <header className="bx-layout__header">
@@ -31,4 +31,4 @@ function LayoutDefault() {
   );
 }
 
-export default LayoutDefault;
+export default BxLayoutDefault;
