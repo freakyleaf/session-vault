@@ -1,0 +1,8 @@
+.bx-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.bx-layout__main {
+  flex-grow: 1;
+}

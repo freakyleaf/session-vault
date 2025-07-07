@@ -1,7 +1,7 @@
-function PageFooterContent() {
+function BxPageFooterContent() {
   return (
-    <div className="w-full flex justify-content-center align-items-center py-4 text-bluegray-300">
-      Built by&nbsp;
+    <div className="bx-page-footer-content">
+      <span className="text-bluegray-300">Built by&nbsp;</span>
       <a
         className="text-bluegray-400 no-underline"
         href="https://freakyleaf.co.uk"
@@ -14,4 +14,4 @@ function PageFooterContent() {
   );
 }
 
-export default PageFooterContent;
+export default BxPageFooterContent;

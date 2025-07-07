@@ -4,7 +4,7 @@ import { Menubar } from 'primereact/menubar';
 
 import type { MenuItem } from 'primereact/menuitem';
 
-function PageNavigationContent() {
+function BxPageNavigationContent() {
   const navigate = useNavigate();
 
   const items: MenuItem[] = [
@@ -45,7 +45,11 @@ function PageNavigationContent() {
     },
   ];
 
-  return <Menubar model={items} />;
+  return (
+    <div className="bx-page-navigation-content">
+      <Menubar model={items} />
+    </div>
+  );
 }
 
-export default PageNavigationContent;
+export default BxPageNavigationContent;

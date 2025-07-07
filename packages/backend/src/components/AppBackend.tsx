@@ -2,12 +2,12 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 
 import LayoutDefault from '@backend-src/layouts/LayoutDefault';
 
-import PageAlbums from '@backend-src/pages/PageAlbums';
-import PageArtists from '@backend-src/pages/PageArtists';
-import PageHome from '@backend-src/pages/PageHome';
-import PageNotFound from '@backend-src/pages/PageNotFound';
-import PageSessions from '@backend-src/pages/PageSessions';
-import PageSongs from '@backend-src/pages/PageSongs';
+import BxPageAlbums from '@backend-src/pages/BxPageAlbums';
+import BxPageArtists from '@backend-src/pages/BxPageArtists';
+import BxPageHome from '@backend-src/pages/BxPageHome';
+import BxPageNotFound from '@backend-src/pages/BxPageNotFound';
+import BxPageSessions from '@backend-src/pages/BxPageSessions';
+import BxPageSongs from '@backend-src/pages/BxPageSongs';
 
 function AppBackend() {
   return (
@@ -18,28 +18,27 @@ function AppBackend() {
           path="/"
         >
           <Route
-            element={<PageHome />}
+            element={<BxPageHome />}
             index
           />
           <Route
-            element={<PageAlbums />}
+            element={<BxPageAlbums />}
             path="albums"
           />
           <Route
-            element={<PageArtists />}
+            element={<BxPageArtists />}
             path="artists"
           />
           <Route
-            element={<PageSessions />}
+            element={<BxPageSessions />}
             path="sessions"
           />
           <Route
-            element={<PageSongs />}
+            element={<BxPageSongs />}
             path="songs"
           />
-
           <Route
-            element={<PageNotFound />}
+            element={<BxPageNotFound />}
             path="*"
           />
         </Route>
