@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
 
-import { useUserRole } from '@backend-src/hooks/useUserRole';
+import { useUserRole } from '@backend-src/hooks/bxUseUserRole';
 
 import type { MenuItem } from 'primereact/menuitem';
 

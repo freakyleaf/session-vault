@@ -1,4 +1,4 @@
-import { usePageTitle } from '@backend-src/hooks/usePageTitle';
+import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
 
 function BxPageSongs() {
   usePageTitle('Songs');

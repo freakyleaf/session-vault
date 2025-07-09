@@ -2,8 +2,8 @@ import { SignedIn, SignedOut, SignIn } from '@clerk/clerk-react';
 
 import { Panel } from 'primereact/panel';
 
-import { usePageTitle } from '@backend-src/hooks/usePageTitle';
-import { useUserRole } from '@backend-src/hooks/useUserRole';
+import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
+import { useUserRole } from '@backend-src/hooks/bxUseUserRole';
 
 function BxPageHome() {
   usePageTitle('Home');

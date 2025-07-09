@@ -1,12 +1,18 @@
 import mongoose from 'mongoose';
 
+import { Session } from '@database-src/models/dxSessionModel';
+
 import {
   MODEL_ALBUM,
   MODEL_ARTIST,
   MODEL_SONG,
 } from '@shared-src/lib/constants';
 
-const albumSchema = new mongoose.Schema({
+const songSchema = new mongoose.Schema({
+  album: {
+    ref: MODEL_ALBUM,
+    type: mongoose.Schema.Types.ObjectId,
+  },
   artist: {
     ref: MODEL_ARTIST,
     required: true,
@@ -20,36 +26,21 @@ const albumSchema = new mongoose.Schema({
     default: true,
     type: Boolean,
   },
-  media: {
-    image: String,
-  },
-  releaseDate: Date,
-  songs: [
-    {
-      ref: MODEL_SONG,
-      type: mongoose.Schema.Types.ObjectId,
-    },
-  ],
+  sessions: [Session],
   title: {
     required: true,
     trim: true,
     type: String,
   },
-  trackOrder: [
-    {
-      ref: MODEL_SONG,
-      type: mongoose.Schema.Types.ObjectId,
-    },
-  ],
   updatedAt: {
     default: Date.now,
     type: Date,
   },
 });
 
-albumSchema.pre('save', function (next) {
+songSchema.pre('save', function (next) {
   this.updatedAt = new Date();
   next();
 });
 
-export const Album = mongoose.model(MODEL_ALBUM, albumSchema);
+export const Song = mongoose.model(MODEL_SONG, songSchema);

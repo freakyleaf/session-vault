@@ -1,4 +1,4 @@
-import { useUserRole } from '@backend-src/hooks/useUserRole';
+import { useUserRole } from '@backend-src/hooks/bxUseUserRole';
 
 import type { ReactNode } from 'react';
 
