@@ -6,6 +6,7 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const AlbumApiService: typeof import('../shared/src/services/sxAlbumApiService')['AlbumApiService']
   const AppBackend: typeof import('./src/components/AppBackend')['default']
   const BxAccessDenied: typeof import('./src/components/BxAccessDenied')['default']
   const BxFormInput: typeof import('./src/components/BxFormInput')['default']
@@ -30,14 +31,19 @@ declare global {
   const Routes: typeof import('react-router-dom')['Routes']
   const SxContainer: typeof import('../shared/src/components/SxContainer')['default']
   const SxProgressSpinner: typeof import('../shared/src/components/SxProgressSpinner')['default']
+  const authenticatedApi: typeof import('./src/hooks/bxUseAuthenticatedApi')['authenticatedApi']
   const createRef: typeof import('react')['createRef']
   const forwardRef: typeof import('react')['forwardRef']
   const lazy: typeof import('react')['lazy']
   const memo: typeof import('react')['memo']
   const startTransition: typeof import('react')['startTransition']
+  const useAlbumApi: typeof import('./src/hooks/bxUseAlbumApi')['useAlbumApi']
   const useApi: typeof import('../shared/src/hooks/shared/useApi')['default']
   const useArtists: typeof import('../shared/src/hooks/useArtists')['useArtists']
+  const useAuthenticatedApi: typeof import('./src/hooks/bxUseAuthenticatedApi')['useAuthenticatedApi']
+  const useAuthenticatedQueries: typeof import('./src/hooks/bxUseAuthenticatedApi')['useAuthenticatedQueries']
   const useCallback: typeof import('react')['useCallback']
+  const useClerkRtkQuery: typeof import('./src/hooks/bxUseClerkRtkQuery')['useClerkRtkQuery']
   const useContext: typeof import('react')['useContext']
   const useDebugValue: typeof import('react')['useDebugValue']
   const useDeferredValue: typeof import('react')['useDeferredValue']
@@ -55,7 +61,7 @@ declare global {
   const useNavigationType: typeof import('react-router-dom')['useNavigationType']
   const useOutlet: typeof import('react-router-dom')['useOutlet']
   const useOutletContext: typeof import('react-router-dom')['useOutletContext']
-  const usePageTitle: typeof import('./src/hooks/usePageTitle')['usePageTitle']
+  const usePageTitle: typeof import('./src/hooks/bxUsePageTitle')['usePageTitle']
   const useParams: typeof import('react-router-dom')['useParams']
   const useReducer: typeof import('react')['useReducer']
   const useRef: typeof import('react')['useRef']
@@ -67,6 +73,12 @@ declare global {
   const useTransition: typeof import('react')['useTransition']
   const useUserCount: typeof import('../shared/src/hooks/useUserCount')['useUserCount']
   const useUserCredentials: typeof import('../shared/src/hooks/useUserCredentials')['useUserCredentials']
-  const useUserRole: typeof import('./src/hooks/useUserRole')['useUserRole']
+  const useUserRole: typeof import('./src/hooks/bxUseUserRole')['useUserRole']
   const useUsers: typeof import('../shared/src/hooks/useUserCredentials')['useUsers']
+}
+// for type re-export
+declare global {
+  // @ts-ignore
+  export type { AlbumApiService, ApiConfig } from '../shared/src/services/sxAlbumApiService'
+  import('../shared/src/services/sxAlbumApiService')
 }

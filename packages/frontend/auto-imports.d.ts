@@ -6,6 +6,7 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const AlbumApiService: typeof import('../shared/src/services/sxAlbumApiService')['AlbumApiService']
   const AppFrontend: typeof import('./src/components/AppFrontend')['default']
   const Link: typeof import('react-router-dom')['Link']
   const NavLink: typeof import('react-router-dom')['NavLink']
@@ -20,6 +21,7 @@ declare global {
   const lazy: typeof import('react')['lazy']
   const memo: typeof import('react')['memo']
   const startTransition: typeof import('react')['startTransition']
+  const useAlbumApi: typeof import('./src/hooks/fxUseAlbumApi')['useAlbumApi']
   const useApi: typeof import('../shared/src/hooks/shared/useApi')['default']
   const useArtists: typeof import('../shared/src/hooks/useArtists')['useArtists']
   const useCallback: typeof import('react')['useCallback']
@@ -52,4 +54,10 @@ declare global {
   const useUserCount: typeof import('../shared/src/hooks/useUserCount')['useUserCount']
   const useUserCredentials: typeof import('../shared/src/hooks/useUserCredentials')['useUserCredentials']
   const useUsers: typeof import('../shared/src/hooks/useUserCredentials')['useUsers']
+}
+// for type re-export
+declare global {
+  // @ts-ignore
+  export type { AlbumApiService, ApiConfig } from '../shared/src/services/sxAlbumApiService'
+  import('../shared/src/services/sxAlbumApiService')
 }
