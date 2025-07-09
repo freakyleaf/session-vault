@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-import BxLayoutDefault from '@backend-root/src/layouts/BxLayoutDefault';
+import BxLayoutDefault from '@backend-src/layouts/BxLayoutDefault';
 
 import BxPageAlbums from '@backend-src/pages/BxPageAlbums';
 import BxPageArtists from '@backend-src/pages/BxPageArtists';
