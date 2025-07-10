@@ -10,7 +10,7 @@ function BxPageHeaderContent() {
         to="/"
       >
         <img
-          src="/studio-log-logo.svg"
+          src="/site-logo.svg"
           alt={`${WEBSITE_NAME} logo`}
           className="w-12rem py-3"
         />
