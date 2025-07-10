@@ -1,10 +1,10 @@
+@use '@shared-styles/utils/sx-extends' as *;
 @use '@shared-styles/variables/sx-colors' as *;
 @use '@shared-styles/variables/sx-sizes' as *;
 
 .bx-page-footer-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @extend %flex-center;
+
   padding-top: $size-3;
   padding-bottom: $size-3;
   margin-top: $size-3;
