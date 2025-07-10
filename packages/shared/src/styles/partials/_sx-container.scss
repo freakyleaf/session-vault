@@ -1,7 +1,9 @@
+@use '@shared-styles/variables/sx-sizes' as *;
+
 .sx-container {
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: $size-container-padding-y;
+  padding-right: $size-container-padding-y;
 }
