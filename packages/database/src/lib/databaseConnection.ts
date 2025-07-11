@@ -9,10 +9,12 @@ export const connectDatabase = async () => {
   }
 
   try {
-    const mongoUri = process.env.MONGODB_URI;
+    const mongoUri = process.env.PRIVATE_MONGODB_URI;
 
     if (!mongoUri) {
-      throw new Error('MONGODB_URI environment variable is not defined');
+      throw new Error(
+        'PRIVATE_MONGODB_URI environment variable is not defined',
+      );
     }
 
     const mongoConnection = await mongoose.connect(mongoUri);
