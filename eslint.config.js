@@ -23,6 +23,10 @@ export default tseslint.config([
       },
     },
     rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
       'array-bracket-spacing': ['error', 'never'],
       'comma-dangle': [
         'error',
