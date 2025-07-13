@@ -1,2 +1,10 @@
 pnpm run lint:scripts
 pnpm run lint:styles
+
+if ! pnpm version:check; then
+  echo ""
+  echo "Version mismatches detected!"
+  echo "Run 'pnpm version:check' to see details."
+  echo "Run 'pnpm version:fix' to automatically fix the issues."
+  exit 1
+fi

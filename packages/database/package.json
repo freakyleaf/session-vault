@@ -2,5 +2,8 @@
   "name": "database",
   "private": true,
   "version": "0.0.0",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "mongoose": "^8.16.1"
+  }
 }
