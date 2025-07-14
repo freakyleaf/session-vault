@@ -1,4 +1,4 @@
-# Studio Log
+# SessionVault
 
 This project is composed of a MERN stack backend application (authenticated with Clerk) and a React frontend application.
 

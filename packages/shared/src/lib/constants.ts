@@ -26,4 +26,4 @@ export const USER_ROLE_ARTIST = 'artist';
 export const VIEW_TYPE_ALL = 'all';
 export const VIEW_TYPE_SINGLE = 'single';
 
-export const WEBSITE_NAME = 'Studio Log';
+export const WEBSITE_NAME = 'SessionVault';
