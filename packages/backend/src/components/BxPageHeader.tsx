@@ -24,8 +24,18 @@ function BxPageHeaderContent() {
           <SxContainer>
             <div className="bx-page-header__content">
               {primaryEmailAddress}
-              {isAdmin && <Tag value="Admin" />}
-              {isArtist && <Tag value="Artist" />}
+              {isAdmin && (
+                <Tag
+                  severity="success"
+                  value="Admin"
+                />
+              )}
+              {isArtist && (
+                <Tag
+                  severity="success"
+                  value="Artist"
+                />
+              )}
             </div>
           </SxContainer>
         </div>
