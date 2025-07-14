@@ -1,5 +1,3 @@
-import { useUserRole } from '@backend-src/hooks/bxUseUserRole';
-
 import type { ReactNode } from 'react';
 
 interface BxAdminRouteGuardProps {
@@ -7,7 +5,11 @@ interface BxAdminRouteGuardProps {
 }
 
 function BxAdminRouteGuard({ children }: BxAdminRouteGuardProps) {
-  const { isAdmin } = useUserRole();
+  const { isAdmin, isLoaded } = useClerkUserRole();
+
+  if (!isLoaded) {
+    return <SxProgressSpinner />;
+  }
 
   if (!isAdmin) {
     return <BxAccessDenied />;

@@ -29,7 +29,9 @@ const artistSchema = new mongoose.Schema({
 });
 
 artistSchema.pre('save', function (next) {
-  this.updatedAt = new Date();
+  if (this.isModified() && !this.isNew) {
+    this.updatedAt = new Date();
+  }
   next();
 });
 

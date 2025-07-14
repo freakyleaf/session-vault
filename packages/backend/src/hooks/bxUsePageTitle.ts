@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { WEBSITE_NAME } from '@shared-src/lib/constants';
 
 export function usePageTitle(title: string) {

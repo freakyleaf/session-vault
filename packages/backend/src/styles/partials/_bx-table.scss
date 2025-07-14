@@ -1,0 +1,29 @@
+@use '@shared-styles/variables/sx-colors' as *;
+@use '@shared-styles/variables/sx-sizes' as *;
+
+/* stylelint-disable no-descending-specificity */
+
+.bx-table {
+  width: 100%;
+  border: 1px solid $color-prime-menubar-border;
+  border-collapse: collapse;
+
+  td,
+  th {
+    padding: $size-3;
+    border-top: 1px dashed $color-prime-menubar-border;
+    border-bottom: 1px dashed $color-prime-menubar-border;
+  }
+
+  td {
+    width: 100%; // Make as wide as possible
+    padding-left: 0;
+  }
+
+  th {
+    text-align: left;
+    white-space: nowrap;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */

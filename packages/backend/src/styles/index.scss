@@ -1,7 +1,11 @@
+@use 'partials/bx-album-card';
+@use 'partials/bx-dialog-content';
 @use 'partials/bx-form-input';
 @use 'partials/bx-layout';
-@use 'partials/bx-page-footer-content';
-@use 'partials/bx-page-header-content';
+@use 'partials/bx-page-albums';
+@use 'partials/bx-page-footer';
+@use 'partials/bx-page-header';
 @use 'partials/bx-sign-in';
+@use 'partials/bx-table';
 
 @use 'vendors/bx-prime-react';

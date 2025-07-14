@@ -22,7 +22,7 @@ const songSchema = new mongoose.Schema({
     default: Date.now,
     type: Date,
   },
-  isActive: {
+  isPublic: {
     default: true,
     type: Boolean,
   },
@@ -39,7 +39,9 @@ const songSchema = new mongoose.Schema({
 });
 
 songSchema.pre('save', function (next) {
-  this.updatedAt = new Date();
+  if (this.isModified() && !this.isNew) {
+    this.updatedAt = new Date();
+  }
   next();
 });
 

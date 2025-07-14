@@ -1,0 +1,17 @@
+@use '@shared-styles/utils/sx-extends' as *;
+@use '@shared-styles/variables/sx-colors' as *;
+@use '@shared-styles/variables/sx-sizes' as *;
+
+.bx-page-footer {
+  padding-top: $size-4;
+  padding-bottom: $size-4;
+  margin-top: $size-3;
+  background-color: $color-prime-menubar-background;
+  border-top: 1px solid $color-prime-menubar-border;
+}
+
+.bx-page-footer__content {
+  @extend %flex-center;
+
+  width: 100%;
+}

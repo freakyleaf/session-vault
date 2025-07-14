@@ -1,0 +1,11 @@
+@use '@shared-styles/variables/sx-colors' as *;
+@use '@shared-styles/variables/sx-sizes' as *;
+
+.bx-dialog-content__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: $size-3;
+  margin-top: $size-5;
+  padding-top: $size-5;
+  border-top: 1px solid $color-prime-menubar-border;
+}

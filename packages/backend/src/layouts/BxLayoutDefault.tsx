@@ -1,21 +1,13 @@
 import { Outlet } from 'react-router';
 
-import BxPageFooterContent from '@backend-src/components/BxPageFooterContent';
-import BxPageHeaderContent from '@backend-src/components/BxPageHeaderContent';
-import BxPageNavigationContent from '@backend-src/components/BxPageNavigationContent';
-
 function BxLayoutDefault() {
   return (
     <div className="bx-layout bx-layout--default min-h-screen">
       <header className="bx-layout__header">
-        <SxContainer>
-          <BxPageHeaderContent />
-        </SxContainer>
+        <BxPageHeader />
       </header>
       <nav className="bx-layout__navigation">
-        <SxContainer>
-          <BxPageNavigationContent />
-        </SxContainer>
+        <BxPageNavigation />
       </nav>
       <main className="bx-layout__main">
         <SxContainer>
@@ -23,9 +15,7 @@ function BxLayoutDefault() {
         </SxContainer>
       </main>
       <footer className="bx-layout__footer">
-        <SxContainer>
-          <BxPageFooterContent />
-        </SxContainer>
+        <BxPageFooter />
       </footer>
     </div>
   );

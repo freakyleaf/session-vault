@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router';
 import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
 
-import { useUserRole } from '@backend-src/hooks/bxUseUserRole';
+import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
 
 import type { MenuItem } from 'primereact/menuitem';
 
-function BxPageNavigationContent() {
+function BxPageNavigation() {
   const navigate = useNavigate();
 
-  const { isAdmin } = useUserRole();
+  const { isAdmin } = useClerkUserRole();
   const { isSignedIn } = useAuth();
   const { signOut } = useClerk();
 
@@ -83,13 +83,17 @@ function BxPageNavigationContent() {
   );
 
   return (
-    <div className="bx-page-navigation-content">
-      <Menubar
-        end={end}
-        model={items}
-      />
+    <div className="bx-page-navigation">
+      <SxContainer>
+        <div className="bx-page-navigation__content">
+          <Menubar
+            end={end}
+            model={items}
+          />
+        </div>
+      </SxContainer>
     </div>
   );
 }
 
-export default BxPageNavigationContent;
+export default BxPageNavigation;

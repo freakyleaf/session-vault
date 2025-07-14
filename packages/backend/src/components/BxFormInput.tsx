@@ -1,10 +1,10 @@
-import { forwardRef, useCallback, useMemo } from 'react';
-
+import { Calendar } from 'primereact/calendar';
 import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 
 import {
+  INPUT_TYPE_CALENDAR,
   INPUT_TYPE_EMAIL,
   INPUT_TYPE_NUMBER,
   INPUT_TYPE_PASSWORD,
@@ -24,13 +24,12 @@ interface BxFormInputProps {
   'id': string;
   'label': string;
   'name': string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  'onChange'?: (value: any) => void;
+  'onChange'?: (value: unknown) => void;
   'passwordFeedback'?: boolean;
   'placeholder'?: string;
   'required'?: boolean;
   'type': TInputType;
-  'value'?: number | string;
+  'value'?: Date | number | string | null;
 }
 
 const BxFormInput = forwardRef<HTMLInputElement, BxFormInputProps>(
@@ -55,10 +54,10 @@ const BxFormInput = forwardRef<HTMLInputElement, BxFormInputProps>(
     },
     ref,
   ) => {
-    // Memoize computed values
-    const hasError = useMemo(() => Boolean(error), [error]);
-    const helperId = useMemo(() => `${id}-helper`, [id]);
     const errorId = useMemo(() => `${id}-error`, [id]);
+    const helperId = useMemo(() => `${id}-helper`, [id]);
+    const hasError = useMemo(() => Boolean(error), [error]);
+
     const describedBy = useMemo(() => {
       const ids = [
         ariaDescribedBy,
@@ -67,9 +66,8 @@ const BxFormInput = forwardRef<HTMLInputElement, BxFormInputProps>(
         .filter(Boolean)
         .join(' ');
       return ids || undefined;
-    }, [ariaDescribedBy, hasError, errorId, helper, helperId]);
+    }, [ariaDescribedBy, errorId, hasError, helper, helperId]);
 
-    // Memoize common props
     const commonProps = useMemo(
       () => ({
         'aria-describedby': describedBy,
@@ -92,97 +90,112 @@ const BxFormInput = forwardRef<HTMLInputElement, BxFormInputProps>(
       ],
     );
 
-    // Use useCallback for change handlers to prevent unnecessary re-renders
-    const handleTextChange = useCallback(
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange?.(e.target.value);
+    const handleCalendarChange = useCallback(
+      (event: { value?: Date | null }) => {
+        onChange?.(event.value ?? null);
       },
       [onChange],
     );
 
     const handleNumberChange = useCallback(
-      (e: InputNumberChangeEvent) => {
-        onChange?.(e.value ?? 0);
+      (event: InputNumberChangeEvent) => {
+        onChange?.(event.value ?? null);
       },
       [onChange],
     );
 
-    const renderFormInput = useCallback(() => {
+    const handleTextChange = useCallback(
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        onChange?.(event.target.value);
+      },
+      [onChange],
+    );
+
+    const renderFormInput = () => {
       switch (type) {
+        case INPUT_TYPE_CALENDAR:
+          return (
+            <Calendar
+              dateFormat="dd.mm.yy"
+              inputId={id}
+              onChange={handleCalendarChange}
+              showButtonBar
+              showIcon
+              value={value ? new Date(value) : null}
+            />
+          );
         case INPUT_TYPE_EMAIL:
           return (
             <InputText
               {...commonProps}
               id={id}
               onChange={handleTextChange}
-              ref={ref as React.Ref<HTMLInputElement>}
+              ref={ref}
               type="email"
               value={String(value ?? '')}
             />
           );
+
         case INPUT_TYPE_NUMBER:
           return (
             <InputNumber
               {...commonProps}
               id={id}
               onChange={handleNumberChange}
-              value={Number(value) || null}
+              value={typeof value === 'number' ? value : null}
             />
           );
+
         case INPUT_TYPE_PASSWORD:
           return (
             <Password
               {...commonProps}
+              feedback={passwordFeedback}
               inputId={id}
               onChange={handleTextChange}
-              feedback={passwordFeedback}
               value={String(value ?? '')}
             />
           );
+
         case INPUT_TYPE_TEXT:
           return (
             <InputText
               {...commonProps}
               id={id}
               onChange={handleTextChange}
-              ref={ref as React.Ref<HTMLInputElement>}
+              ref={ref}
               value={String(value ?? '')}
             />
           );
+
         default:
           return null;
       }
-    }, [
-      commonProps,
-      handleNumberChange,
-      handleTextChange,
-      id,
-      passwordFeedback,
-      ref,
-      type,
-      value,
-    ]);
+    };
 
     return (
-      <div className={`bx-form-input mb-3 ${className}`}>
+      <div className={`bx-form-input ${className}`.trim()}>
         <label htmlFor={id}>
           {label}
           {required && <span className="text-red-500 ml-1">(required)</span>}
         </label>
+
         {renderFormInput()}
+
         {hasError && (
           <small
-            id={errorId}
             className="bx-error text-red-500"
+            id={errorId}
             role="alert"
           >
             {error}
           </small>
         )}
+
         {helper && !hasError && (
           <small
-            id={helperId}
             className="bx-helper"
+            id={helperId}
           >
             {helper}
           </small>

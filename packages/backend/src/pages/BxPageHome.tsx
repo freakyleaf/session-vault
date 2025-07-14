@@ -2,12 +2,12 @@ import { SignedIn, SignedOut, SignIn } from '@clerk/clerk-react';
 
 import { Panel } from 'primereact/panel';
 
+import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
 import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
-import { useUserRole } from '@backend-src/hooks/bxUseUserRole';
 
 function BxPageHome() {
   usePageTitle('Home');
-  const { isAdmin } = useUserRole();
+  const { isAdmin } = useClerkUserRole();
 
   return (
     <div className="bx-page bx-page--home">

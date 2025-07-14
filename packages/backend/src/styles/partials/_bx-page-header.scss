@@ -1,0 +1,19 @@
+@use '@shared-styles/utils/sx-extends' as *;
+@use '@shared-styles/variables/sx-colors' as *;
+@use '@shared-styles/variables/sx-sizes' as *;
+
+.bx-page-header__user {
+  padding-top: $size-2;
+  padding-bottom: $size-2;
+  background-color: $color-prime-menubar-background;
+  border-bottom: 1px solid $color-prime-menubar-border;
+}
+
+.bx-page-header__content {
+  .bx-page-header__user & {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: $size-gap-default;
+  }
+}
