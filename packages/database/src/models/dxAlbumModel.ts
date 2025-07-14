@@ -7,7 +7,6 @@ import type { IAlbum } from '@shared-src/lib/interfaces';
 const albumSchema = new mongoose.Schema(
   {
     artistClerkId: {
-      index: true,
       required: [true, 'artistClerkId is required'],
       type: String,
       validate: {
