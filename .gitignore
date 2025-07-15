@@ -4,5 +4,7 @@
 logs
 pnpm-debug.log*
 
+CLAUDE.md
+
 dist
 node_modules
