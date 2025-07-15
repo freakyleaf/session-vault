@@ -17,9 +17,9 @@ import type { Response } from 'express';
 
 const albumRoutes = express.Router();
 
-// Get the current user's albums
+// Get all artist albums
 albumRoutes.get(
-  '/',
+  '/artist',
   clerkMiddleware(),
   async (req: IAuthenticatedRequest, res: Response): Promise<void> => {
     try {
@@ -52,9 +52,9 @@ albumRoutes.get(
   },
 );
 
-// Get all albums (admin only)
+// Get all admin albums
 albumRoutes.get(
-  '/all',
+  '/admin',
   clerkMiddleware(),
   checkUserRole([USER_ROLE_ADMIN]),
   async (_req: IAuthenticatedRequest, res: Response): Promise<void> => {

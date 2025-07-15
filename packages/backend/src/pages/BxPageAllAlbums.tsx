@@ -7,7 +7,7 @@ import { Messages } from 'primereact/messages';
 import { Toolbar } from 'primereact/toolbar';
 
 import { useAlbumOperations } from '@backend-src/hooks/bxUseAlbumOperations';
-import { useClerkRtkQuery } from '@backend-src/hooks/bxUseClerkRtkQuery';
+import { useClerkAuth } from '@backend-src/hooks/bxUseClerkAuth';
 import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
 import { useToast } from '@backend-src/hooks/bxUseToast';
 
@@ -26,7 +26,7 @@ import type { IAlbum } from '@shared-src/lib/interfaces';
 import type { MessagesMessage } from 'primereact/messages';
 
 function BxPageAllAlbums() {
-  useClerkRtkQuery();
+  useClerkAuth();
   usePageTitle('Albums');
 
   const [dialogVisible, setDialogVisible] = useState(false);

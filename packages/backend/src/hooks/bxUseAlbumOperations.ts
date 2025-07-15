@@ -1,13 +1,3 @@
-import {
-  useDeleteSingleAlbumMutation,
-  useGetAllAlbumsQuery,
-  useGetAllArtistAlbumsQuery,
-  useGetSingleAlbumQuery,
-} from '@shared-src/stores/api/storeBaseApi';
-
-import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
-import { useToast } from '@backend-src/hooks/bxUseToast';
-
 import type { IAlbum } from '@shared-src/lib/interfaces';
 
 interface UseAlbumOperationsProps {
@@ -25,37 +15,35 @@ export const useAlbumOperations = ({
     error: allAdminAlbumsStateError,
     isLoading: allAdminAlbumsStateLoading,
     refetch: allAdminAlbumsActionRefetch,
-  } = useGetAllAlbumsQuery(undefined, {
-    skip: !isAdmin,
-  });
+  } = useGetAllAdminAlbums(isAdmin);
 
   const {
     data: allArtistAlbumsData,
     error: allArtistAlbumsStateError,
     isLoading: allArtistAlbumsStateLoading,
     refetch: allArtistAlbumsActionRefetch,
-  } = useGetAllArtistAlbumsQuery(undefined, {
-    skip: isAdmin,
-  });
+  } = useGetAllArtistAlbums(!isAdmin);
 
   const {
     data: singleAlbumData,
     error: singleAlbumStateError,
     isLoading: singleAlbumStateLoading,
     refetch: singleAlbumRefetch,
-  } = useGetSingleAlbumQuery(albumId!, {
-    skip: !albumId,
-  });
+  } = useGetSingleAlbum(albumId!);
 
-  const [singleAlbumDelete, { isLoading: singleAlbumStateDeleting }] =
-    useDeleteSingleAlbumMutation();
+  const {
+    isPending: singleAlbumStateDeleting,
+    mutateAsync: singleAlbumDelete,
+  } = useDeleteSingleAlbum();
 
   const albumQueries = useMemo(
     () => ({
       allAlbumsActionRefetch: isAdmin
         ? allAdminAlbumsActionRefetch
         : allArtistAlbumsActionRefetch,
-      allAlbumsData: isAdmin ? allAdminAlbumsData : allArtistAlbumsData,
+      allAlbumsData: (isAdmin
+        ? allAdminAlbumsData
+        : allArtistAlbumsData) as IAlbum[],
       allAlbumsStateError: isAdmin
         ? allAdminAlbumsStateError
         : allArtistAlbumsStateError,
@@ -64,7 +52,6 @@ export const useAlbumOperations = ({
         : allArtistAlbumsStateLoading,
     }),
     [
-      isAdmin,
       allAdminAlbumsActionRefetch,
       allAdminAlbumsData,
       allAdminAlbumsStateError,
@@ -73,6 +60,7 @@ export const useAlbumOperations = ({
       allArtistAlbumsData,
       allArtistAlbumsStateError,
       allArtistAlbumsStateLoading,
+      isAdmin,
     ],
   );
 
@@ -93,7 +81,7 @@ export const useAlbumOperations = ({
       }
 
       try {
-        await singleAlbumDelete(album._id).unwrap();
+        await singleAlbumDelete(album._id);
         await handleAllAlbumsActionRefetch();
         showSuccess('Album deleted successfully');
       } catch (error) {

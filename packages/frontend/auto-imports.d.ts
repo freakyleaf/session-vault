@@ -26,9 +26,16 @@ declare global {
   const useArtists: typeof import('../shared/src/hooks/useArtists')['useArtists']
   const useCallback: typeof import('react')['useCallback']
   const useContext: typeof import('react')['useContext']
+  const useCreateAlbum: typeof import('./src/hooks/fxUseAlbumQueries')['useCreateAlbum']
   const useDebugValue: typeof import('react')['useDebugValue']
   const useDeferredValue: typeof import('react')['useDeferredValue']
+  const useDeleteAlbum: typeof import('./src/hooks/fxUseAlbumQueries')['useDeleteAlbum']
   const useEffect: typeof import('react')['useEffect']
+  const useGetAllAlbums: typeof import('./src/hooks/fxUseAlbumQueries')['useGetAllAlbums']
+  const useGetArtistAlbums: typeof import('./src/hooks/fxUseAlbumQueries')['useGetArtistAlbums']
+  const useGetPublicAlbum: typeof import('./src/hooks/fxUseAlbumQueries')['useGetPublicAlbum']
+  const useGetPublicAlbums: typeof import('./src/hooks/fxUseAlbumQueries')['useGetPublicAlbums']
+  const useGetSingleAlbum: typeof import('./src/hooks/fxUseAlbumQueries')['useGetSingleAlbum']
   const useHref: typeof import('react-router-dom')['useHref']
   const useId: typeof import('react')['useId']
   const useImperativeHandle: typeof import('react')['useImperativeHandle']
@@ -51,13 +58,8 @@ declare global {
   const useState: typeof import('react')['useState']
   const useSyncExternalStore: typeof import('react')['useSyncExternalStore']
   const useTransition: typeof import('react')['useTransition']
+  const useUpdateAlbum: typeof import('./src/hooks/fxUseAlbumQueries')['useUpdateAlbum']
   const useUserCount: typeof import('../shared/src/hooks/useUserCount')['useUserCount']
   const useUserCredentials: typeof import('../shared/src/hooks/useUserCredentials')['useUserCredentials']
   const useUsers: typeof import('../shared/src/hooks/useUserCredentials')['useUsers']
-}
-// for type re-export
-declare global {
-  // @ts-ignore
-  export type { AlbumApiService, ApiConfig } from '../shared/src/services/sxAlbumApiService'
-  import('../shared/src/services/sxAlbumApiService')
 }

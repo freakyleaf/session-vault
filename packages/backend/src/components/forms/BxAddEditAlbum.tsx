@@ -3,11 +3,6 @@ import { useAuth } from '@clerk/clerk-react';
 import { Button } from 'primereact/button';
 
 import {
-  useCreateSingleAlbumMutation,
-  useUpdateSingleAlbumMutation,
-} from '@shared-src/stores/api/storeBaseApi';
-
-import {
   INPUT_TYPE_CALENDAR,
   INPUT_TYPE_TEXT,
 } from '@shared-src/lib/constants';
@@ -35,10 +30,8 @@ function BxAddEditAlbum({
     title: '',
   });
 
-  const [createAlbum, { isLoading: isCreating }] =
-    useCreateSingleAlbumMutation();
-  const [updateAlbum, { isLoading: isUpdating }] =
-    useUpdateSingleAlbumMutation();
+  const { mutateAsync: createAlbum, isPending: isCreating } = useCreateAlbum();
+  const { mutateAsync: updateAlbum, isPending: isUpdating } = useUpdateAlbum();
 
   const isEditing = useMemo(() => Boolean(album), [album]);
   const isLoading = useMemo(
@@ -101,12 +94,12 @@ function BxAddEditAlbum({
               artistClerkId: album.artistClerkId,
             },
             id: album._id,
-          }).unwrap();
+          });
         } else {
           await createAlbum({
             ...submitData,
             artistClerkId: userId,
-          }).unwrap();
+          });
         }
 
         onSuccess();

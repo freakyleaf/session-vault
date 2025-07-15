@@ -5,7 +5,7 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Dialog } from 'primereact/dialog';
 
 import { useAlbumOperations } from '@backend-src/hooks/bxUseAlbumOperations';
-import { useClerkRtkQuery } from '@backend-src/hooks/bxUseClerkRtkQuery';
+import { useClerkAuth } from '@backend-src/hooks/bxUseClerkAuth';
 import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
 import { useToast } from '@backend-src/hooks/bxUseToast';
 
@@ -19,7 +19,7 @@ import { VIEW_TYPE_SINGLE } from '@shared-src/lib/constants';
 import type { IAlbum } from '@shared-src/lib/interfaces';
 
 function BxPageSingleAlbum() {
-  useClerkRtkQuery();
+  useClerkAuth();
   usePageTitle('Album');
 
   const navigate = useNavigate();

@@ -26,6 +26,7 @@ declare global {
   const BxPageHeaderContent: typeof import('./src/components/BxPageHeaderContent')['default']
   const BxPageNavigation: typeof import('./src/components/BxPageNavigation')['default']
   const BxPageNavigationContent: typeof import('./src/components/BxPageNavigationContent')['default']
+  const BxQueryProvider: typeof import('./src/providers/BxQueryProvider')['BxQueryProvider']
   const BxRouteGuardAdmin: typeof import('./src/components/BxRouteGuardAdmin')['default']
   const BxRouteGuardAuthenticated: typeof import('./src/components/BxRouteGuardAuthenticated')['default']
   const BxToastProvider: typeof import('./src/providers/BxToastProvider')['BxToastProvider']
@@ -46,7 +47,7 @@ declare global {
   const authenticatedApi: typeof import('./src/hooks/bxUseAuthenticatedApi')['authenticatedApi']
   const createRef: typeof import('react')['createRef']
   const forwardRef: typeof import('react')['forwardRef']
-  const getCurrentAuthToken: typeof import('./src/hooks/bxUseClerkRtkQuery')['getCurrentAuthToken']
+  const getCurrentAuthToken: typeof import('./src/hooks/bxUseClerkAuth')['getCurrentAuthToken']
   const lazy: typeof import('react')['lazy']
   const memo: typeof import('react')['memo']
   const startTransition: typeof import('react')['startTransition']
@@ -57,12 +58,22 @@ declare global {
   const useAuthenticatedApi: typeof import('./src/hooks/bxUseAuthenticatedApi')['useAuthenticatedApi']
   const useAuthenticatedQueries: typeof import('./src/hooks/bxUseAuthenticatedApi')['useAuthenticatedQueries']
   const useCallback: typeof import('react')['useCallback']
-  const useClerkRtkQuery: typeof import('./src/hooks/bxUseClerkRtkQuery')['useClerkRtkQuery']
+  const useClerkAuth: typeof import('./src/hooks/bxUseClerkAuth')['useClerkAuth']
   const useClerkUserRole: typeof import('./src/hooks/bxUseClerkUserRole')['useClerkUserRole']
   const useContext: typeof import('react')['useContext']
+  const useCreateAlbum: typeof import('./src/hooks/bxUseAlbumQueries')['useCreateAlbum']
   const useDebugValue: typeof import('react')['useDebugValue']
   const useDeferredValue: typeof import('react')['useDeferredValue']
+  const useDeleteAlbum: typeof import('./src/hooks/bxUseAlbumQueries')['useDeleteAlbum']
+  const useDeleteSingleAlbum: typeof import('./src/hooks/bxUseAlbumQueries')['useDeleteSingleAlbum']
   const useEffect: typeof import('react')['useEffect']
+  const useGetAllAdminAlbums: typeof import('./src/hooks/bxUseAlbumQueries')['useGetAllAdminAlbums']
+  const useGetAllAlbums: typeof import('./src/hooks/bxUseAlbumQueries')['useGetAllAlbums']
+  const useGetAllArtistAlbums: typeof import('./src/hooks/bxUseAlbumQueries')['useGetAllArtistAlbums']
+  const useGetArtistAlbums: typeof import('./src/hooks/bxUseAlbumQueries')['useGetArtistAlbums']
+  const useGetPublicAlbum: typeof import('./src/hooks/bxUseAlbumQueries')['useGetPublicAlbum']
+  const useGetPublicAlbums: typeof import('./src/hooks/bxUseAlbumQueries')['useGetPublicAlbums']
+  const useGetSingleAlbum: typeof import('./src/hooks/bxUseAlbumQueries')['useGetSingleAlbum']
   const useHref: typeof import('react-router-dom')['useHref']
   const useId: typeof import('react')['useId']
   const useImperativeHandle: typeof import('react')['useImperativeHandle']
@@ -87,6 +98,7 @@ declare global {
   const useSyncExternalStore: typeof import('react')['useSyncExternalStore']
   const useToast: typeof import('./src/hooks/bxUseToast')['useToast']
   const useTransition: typeof import('react')['useTransition']
+  const useUpdateAlbum: typeof import('./src/hooks/bxUseAlbumQueries')['useUpdateAlbum']
   const useUserCount: typeof import('../shared/src/hooks/useUserCount')['useUserCount']
   const useUserCredentials: typeof import('../shared/src/hooks/useUserCredentials')['useUserCredentials']
   const useUsers: typeof import('../shared/src/hooks/useUserCredentials')['useUsers']
@@ -96,7 +108,4 @@ declare global {
   // @ts-ignore
   export type { ToastContextType } from './src/hooks/bxUseToast'
   import('./src/hooks/bxUseToast')
-  // @ts-ignore
-  export type { AlbumApiService, ApiConfig } from '../shared/src/services/sxAlbumApiService'
-  import('../shared/src/services/sxAlbumApiService')
 }

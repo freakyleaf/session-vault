@@ -1,13 +1,10 @@
 import { useAuth } from '@clerk/clerk-react';
 
-// Global token storage for RTK Query base query
 let currentToken: string | null = null;
 
-// Function to get the current auth token (used by baseQuery)
 export const getCurrentAuthToken = () => currentToken;
 
-// Hook to manage Clerk authentication state for RTK Query
-export function useClerkRtkQuery() {
+export function useClerkAuth() {
   const { getToken, isSignedIn } = useAuth();
 
   useEffect(() => {

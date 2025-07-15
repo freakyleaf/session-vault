@@ -1,12 +1,7 @@
 import { ClerkProvider } from '@clerk/clerk-react';
 import { createRoot } from 'react-dom/client';
 import { PrimeReactProvider } from 'primereact/api';
-import { Provider } from 'react-redux';
 import { StrictMode } from 'react';
-
-import { BxToastProvider } from '@backend-src/providers/BxToastProvider';
-
-import { store } from '@backend-src/stores/bxStore';
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
@@ -28,19 +23,17 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Provider store={store}>
+    <BxQueryProvider>
       <PrimeReactProvider>
         <ClerkProvider
           afterSignOutUrl="/"
           publishableKey={PUBLISHABLE_KEY}
         >
           <BxToastProvider>
-            <BxAuthProvider>
-              <BxAppBackend />
-            </BxAuthProvider>
+            <BxAppBackend />
           </BxToastProvider>
         </ClerkProvider>
       </PrimeReactProvider>
-    </Provider>
+    </BxQueryProvider>
   </StrictMode>,
 );
