@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 import { Button } from 'primereact/button';
@@ -15,7 +16,11 @@ import {
   configDialogDefaultValues,
 } from '@shared-src/lib/config';
 
-import { VIEW_TYPE_ALL } from '@shared-src/lib/constants';
+import {
+  STYLE_TRANSITION_DURATION,
+  STYLE_TRANSITION_EASE,
+  VIEW_TYPE_ALL,
+} from '@shared-src/lib/constants';
 
 import type { IAlbum } from '@shared-src/lib/interfaces';
 import type { MessagesMessage } from 'primereact/messages';
@@ -157,22 +162,32 @@ function BxPageAllAlbums() {
 
     return (
       <ul className="bx-page-albums__list">
-        {allAlbumsData.map((album, index) => (
-          <li
-            className={`bx-page-albums__list-item${
-              index !== allAlbumsData.length - 1 ? ' mb-3' : ''
-            }`}
-            key={album._id}
-          >
-            <BxAlbumCard
-              album={album}
-              handleDeleteAlbum={handleDeleteAlbum}
-              handleEditAlbum={handleEditAlbum}
-              singleAlbumStateDeleting={singleAlbumStateDeleting}
-              viewType={VIEW_TYPE_ALL}
-            />
-          </li>
-        ))}
+        <AnimatePresence mode="popLayout">
+          {allAlbumsData.map((album, index) => (
+            <motion.li
+              animate={{ opacity: 1 }}
+              className={`bx-page-albums__list-item${
+                index !== allAlbumsData.length - 1 ? ' mb-3' : ''
+              }`}
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
+              key={album._id}
+              layout
+              transition={{
+                duration: STYLE_TRANSITION_DURATION,
+                ease: STYLE_TRANSITION_EASE,
+              }}
+            >
+              <BxAlbumCard
+                album={album}
+                handleDeleteAlbum={handleDeleteAlbum}
+                handleEditAlbum={handleEditAlbum}
+                singleAlbumStateDeleting={singleAlbumStateDeleting}
+                viewType={VIEW_TYPE_ALL}
+              />
+            </motion.li>
+          ))}
+        </AnimatePresence>
       </ul>
     );
   };

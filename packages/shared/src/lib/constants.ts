@@ -15,6 +15,9 @@ export const MODEL_SESSION = 'Session';
 export const MODEL_SONG = 'Song';
 export const MODEL_USER = 'User';
 
+export const STYLE_TRANSITION_DURATION = 300;
+export const STYLE_TRANSITION_EASE = 'easeInOut';
+
 export const TOAST_SEVERITY_ERROR = 'error';
 export const TOAST_SEVERITY_INFO = 'info';
 export const TOAST_SEVERITY_SUCCESS = 'success';
