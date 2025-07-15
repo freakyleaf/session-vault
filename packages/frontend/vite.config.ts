@@ -12,9 +12,11 @@ export default defineConfig({
       dirs: [
         './src/components/**',
         './src/hooks/**',
+        './src/providers/**',
         './src/services/**',
         '../shared/src/components/**',
         '../shared/src/hooks/**',
+        '../shared/src/providers/**',
         '../shared/src/services/**',
       ],
       dts: true, // Generates auto-imports.d.ts
