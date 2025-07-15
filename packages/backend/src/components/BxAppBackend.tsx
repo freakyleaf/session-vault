@@ -10,12 +10,11 @@ import BxPageAllAlbums from '@backend-root/src/pages/BxPageAllAlbums';
 import BxPageArtists from '@backend-src/pages/BxPageArtists';
 import BxPageHome from '@backend-src/pages/BxPageHome';
 import BxPageNotFound from '@backend-src/pages/BxPageNotFound';
+import BxPageProfile from '@backend-src/pages/BxPageProfile';
 import BxPageSessions from '@backend-src/pages/BxPageSessions';
+import BxPageSettings from '@backend-src/pages/BxPageSettings';
 import BxPageSingleAlbum from '@backend-src/pages/BxPageSingleAlbum';
 import BxPageSongs from '@backend-src/pages/BxPageSongs';
-
-import BxRouteGuardAdmin from '@backend-src/components/BxRouteGuardAdmin';
-import BxRouteGuardAuthenticated from '@backend-src/components/BxRouteGuardAuthenticated';
 
 function BxAppBackend() {
   const { toast } = useToast();
@@ -53,12 +52,25 @@ function BxAppBackend() {
                 path="artists"
               />
               <Route
-                element={<BxPageSessions />}
-                path="sessions"
+                element={<BxRouteGuardArtistCredentials />}
+                path="/"
+              >
+                <Route
+                  element={<BxPageSessions />}
+                  path="sessions"
+                />
+                <Route
+                  element={<BxPageSongs />}
+                  path="songs"
+                />
+              </Route>
+              <Route
+                element={<BxPageSettings />}
+                path="settings"
               />
               <Route
-                element={<BxPageSongs />}
-                path="songs"
+                element={<BxPageProfile />}
+                path="settings/profile"
               />
             </Route>
             <Route

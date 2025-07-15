@@ -14,6 +14,14 @@ import {
   VIEW_TYPE_SINGLE,
 } from '@shared-src/lib/constants';
 
+export type TAlbumId = string;
+
+export type TArtistIsActive = boolean;
+
+export type TArtistId = string;
+
+export type TArtistName = string;
+
 export type TClerkId = string;
 
 export type TId = string;

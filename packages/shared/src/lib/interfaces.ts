@@ -1,4 +1,6 @@
 import type {
+  TArtistIsActive,
+  TArtistName,
   TClerkId,
   TId,
   TIsPublic,
@@ -20,7 +22,7 @@ export interface IAuthenticatedRequest extends Request {
 
 export interface IAlbum {
   _id: TId;
-  artistClerkId: TClerkId;
+  clerkId: TClerkId;
   createdAt: Date;
   isPublic: TIsPublic;
   releaseDate: TReleaseDate;
@@ -36,11 +38,29 @@ export interface IAlbumAddEditFormData {
   title: TTitle;
 }
 
+export interface IArtistAddEditFormData {
+  artistName: TArtistName;
+  isActive: TArtistIsActive;
+}
+
+export interface IArtist {
+  _id: TId;
+  artistName: TArtistName;
+  clerkId: TClerkId;
+  createdAt: Date;
+  isActive: TArtistIsActive;
+  updatedAt: Date;
+}
+
 export interface ISong {
   _id: TId;
   title: TTitle;
 }
 
 export interface ICreateUpdateAlbumRequest extends IAlbumAddEditFormData {
-  artistClerkId: TClerkId;
+  clerkId: TClerkId;
+}
+
+export interface ICreateUpdateArtistRequest extends IArtistAddEditFormData {
+  clerkId: TClerkId;
 }

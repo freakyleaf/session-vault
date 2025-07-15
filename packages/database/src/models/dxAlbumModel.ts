@@ -6,11 +6,11 @@ import type { IAlbum } from '@shared-src/lib/interfaces';
 
 const albumSchema = new mongoose.Schema(
   {
-    artistClerkId: {
-      required: [true, 'artistClerkId is required'],
+    clerkId: {
+      required: [true, 'clerkId is required'],
       type: String,
       validate: {
-        message: 'artistClerkId must be a non-empty string',
+        message: 'clerkId must be a non-empty string',
         validator: (value: string) => value?.trim().length > 0,
       },
     },
@@ -55,7 +55,7 @@ const albumSchema = new mongoose.Schema(
 );
 
 // Add index for efficient queries by artist
-albumSchema.index({ artistClerkId: 1 });
+albumSchema.index({ clerkId: 1 });
 
 albumSchema.pre('save', function (next) {
   if (this.isModified() && !this.isNew) {

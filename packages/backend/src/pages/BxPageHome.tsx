@@ -1,13 +1,29 @@
 import { SignedIn, SignedOut, SignIn } from '@clerk/clerk-react';
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 import { Panel } from 'primereact/panel';
 
-import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
-import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
+import type { RootState } from '@backend-src/stores/bxStore';
 
 function BxPageHome() {
   usePageTitle('Home');
+
+  const navigate = useNavigate();
   const { isAdmin } = useClerkUserRole();
+  const { hasArtistCredentials, isCheckingArtistCredentials } = useSelector(
+    (state: RootState) => state.user,
+  );
+
+  useEffect(() => {
+    if (!hasArtistCredentials) {
+      void navigate('/settings/profile');
+    }
+  }, [hasArtistCredentials, navigate]);
+
+  if (isCheckingArtistCredentials) {
+    return <SxProgressSpinner />;
+  }
 
   return (
     <div className="bx-page bx-page--home">
@@ -18,6 +34,7 @@ function BxPageHome() {
         </div>
       </SignedOut>
       <SignedIn>
+        <BxArtistCredentialsChecker />
         <div className="flex flex-wrap -m-2">
           {isAdmin && (
             <div className="w-full lg:w-6">

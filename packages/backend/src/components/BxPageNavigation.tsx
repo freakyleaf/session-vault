@@ -1,17 +1,21 @@
 import { useAuth, useClerk } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
 
-import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
-
 import type { MenuItem } from 'primereact/menuitem';
+import type { RootState } from '@backend-src/stores/bxStore';
 
 function BxPageNavigation() {
   const navigate = useNavigate();
 
-  const { isAdmin } = useClerkUserRole();
+  const { hasArtistCredentials } = useSelector(
+    (state: RootState) => state.user,
+  );
+
+  const { isAdmin, isArtist } = useClerkUserRole();
   const { isSignedIn } = useAuth();
   const { signOut } = useClerk();
 
@@ -59,6 +63,23 @@ function BxPageNavigation() {
     },
   ];
 
+  const settingsMenuItems: MenuItem[] = [
+    {
+      command: () => {
+        void navigate('/settings');
+      },
+      icon: 'pi pi-cog',
+      label: 'Settings',
+    },
+    {
+      command: () => {
+        void navigate('/settings/profile');
+      },
+      icon: 'pi pi-user',
+      label: 'Profile',
+    },
+  ];
+
   let items: MenuItem[] = globalMenuItems;
 
   if (isSignedIn) {
@@ -67,9 +88,18 @@ function BxPageNavigation() {
         ...items,
         ...authenticatedAdminMenuItems,
         ...authenticatedGlobalMenuItems,
+        ...settingsMenuItems,
       ];
-    } else {
-      items = [...items, ...authenticatedGlobalMenuItems];
+    } else if (isArtist) {
+      if (hasArtistCredentials) {
+        items = [
+          ...items,
+          ...authenticatedGlobalMenuItems,
+          ...settingsMenuItems,
+        ];
+      } else {
+        items = [...items, ...settingsMenuItems];
+      }
     }
   }
 

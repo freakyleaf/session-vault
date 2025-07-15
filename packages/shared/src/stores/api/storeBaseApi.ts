@@ -7,10 +7,6 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
-import type {
-  IAlbum,
-  ICreateUpdateAlbumRequest,
-} from '@shared-src/lib/interfaces';
 
 const apiRootPort = import.meta.env.VITE_API_ROOT_PORT as string;
 const apiRootUrl = import.meta.env.VITE_API_ROOT_URL as string;
@@ -55,103 +51,5 @@ export const baseApi = createApi({
   keepUnusedDataFor: 60, // Keep cached data for 60 seconds
   reducerPath: 'api',
   refetchOnMountOrArgChange: 30, // Refetch if data is older than 30 seconds
-  tagTypes: ['Album', 'Song', 'User'],
+  tagTypes: ['Album', 'Song', 'Artist'],
 });
-
-// Album API endpoints
-export const albumApi = baseApi.injectEndpoints({
-  endpoints: (builder) => ({
-    // Public endpoints (no auth required)
-    getPublicAlbum: builder.query<IAlbum, string>({
-      providesTags: (_result, _error, id) => [{ id, type: 'Album' }],
-      query: (id) => `/albums/public/${id}`,
-    }),
-
-    // Allow RTK Query to surgically update specific albums without refetching the entire list
-    getPublicAlbums: builder.query<IAlbum[], void>({
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ _id }) => ({ id: _id, type: 'Album' } as const)),
-              { id: 'LIST', type: 'Album' },
-            ]
-          : [{ id: 'LIST', type: 'Album' }],
-      query: () => '/albums/public',
-    }),
-
-    // Authenticated endpoints (auth automatically included)
-    // eslint-disable-next-line sort-keys
-    createSingleAlbum: builder.mutation<IAlbum, ICreateUpdateAlbumRequest>({
-      invalidatesTags: [{ id: 'LIST', type: 'Album' }],
-      query: (albumData) => ({
-        body: albumData,
-        method: 'POST',
-        url: '/albums/create',
-      }),
-    }),
-
-    deleteSingleAlbum: builder.mutation<void, string>({
-      invalidatesTags: (_result, _error, id) => [
-        { id, type: 'Album' },
-        { id: 'LIST', type: 'Album' },
-      ],
-      query: (id) => ({
-        method: 'DELETE',
-        url: `/albums/${id}`,
-      }),
-    }),
-
-    getAllAlbums: builder.query<IAlbum[], void>({
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ _id }) => ({ id: _id, type: 'Album' } as const)),
-              { id: 'LIST', type: 'Album' },
-            ]
-          : [{ id: 'LIST', type: 'Album' }],
-      query: () => '/albums/all',
-    }),
-
-    getAllArtistAlbums: builder.query<IAlbum[], void>({
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ _id }) => ({ id: _id, type: 'Album' } as const)),
-              { id: 'LIST', type: 'Album' },
-            ]
-          : [{ id: 'LIST', type: 'Album' }],
-      query: () => '/albums',
-    }),
-
-    getSingleAlbum: builder.query<IAlbum, string>({
-      providesTags: (_result, _error, id) => [{ id, type: 'Album' }],
-      query: (id) => `/albums/${id}`,
-    }),
-
-    updateSingleAlbum: builder.mutation<
-      IAlbum,
-      { data: ICreateUpdateAlbumRequest; id: string }
-    >({
-      invalidatesTags: (_result, _error, { id }) => [
-        { id, type: 'Album' },
-        { id: 'LIST', type: 'Album' },
-      ],
-      query: ({ data, id }) => ({
-        body: data,
-        method: 'PUT',
-        url: `/albums/${id}`,
-      }),
-    }),
-  }),
-});
-
-export const {
-  useCreateSingleAlbumMutation,
-  useDeleteSingleAlbumMutation,
-  useGetSingleAlbumQuery,
-  useGetAllAlbumsQuery,
-  useGetPublicAlbumQuery,
-  useGetPublicAlbumsQuery,
-  useGetAllArtistAlbumsQuery,
-  useUpdateSingleAlbumMutation,
-} = albumApi;

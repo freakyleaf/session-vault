@@ -2,8 +2,6 @@ import { useNavigate } from 'react-router';
 
 import { Button } from 'primereact/button';
 
-import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
-
 import { VIEW_TYPE_ALL } from '@shared-src/lib/constants';
 
 import type { TReleaseDate, TViewType } from '@shared-root/src/lib/types';
@@ -55,7 +53,7 @@ function BxAlbumCard({
           {isAdmin && (
             <tr>
               <th>Artist</th>
-              <td>{album.artistClerkId}</td>
+              <td>{album.clerkId}</td>
             </tr>
           )}
           <tr>

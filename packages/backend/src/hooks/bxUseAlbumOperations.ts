@@ -3,10 +3,7 @@ import {
   useGetAllAlbumsQuery,
   useGetAllArtistAlbumsQuery,
   useGetSingleAlbumQuery,
-} from '@shared-src/stores/api/storeBaseApi';
-
-import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
-import { useToast } from '@backend-src/hooks/bxUseToast';
+} from '@shared-src/stores/api/storeAlbumApi';
 
 import type { IAlbum } from '@shared-src/lib/interfaces';
 

@@ -50,7 +50,7 @@ export const checkAlbumAccess = async (
     }
 
     // Check if artist owns the album
-    if (album.artistClerkId !== userId) {
+    if (album.clerkId !== userId) {
       res.status(403).json({
         error: 'Access denied',
         timestamp: new Date().toISOString(),

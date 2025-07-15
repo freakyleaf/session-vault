@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { baseApi } from '@shared-src/stores/api/storeBaseApi';
 
+import userReducer from '@shared-src/stores/userSlice';
+
 import { ENVIRONMENT_PRODUCTION } from '@shared-root/src/lib/constants';
 
 export const store = configureStore({
@@ -15,6 +17,7 @@ export const store = configureStore({
     }).concat(baseApi.middleware),
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
+    user: userReducer,
   },
 });
 

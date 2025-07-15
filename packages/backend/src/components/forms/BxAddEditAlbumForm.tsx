@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import {
   useCreateSingleAlbumMutation,
   useUpdateSingleAlbumMutation,
-} from '@shared-src/stores/api/storeBaseApi';
+} from '@shared-src/stores/api/storeAlbumApi';
 
 import {
   INPUT_TYPE_CALENDAR,
@@ -14,19 +14,19 @@ import {
 
 import type { IAlbum, IAlbumAddEditFormData } from '@shared-src/lib/interfaces';
 
-interface BxAddEditAlbumProps {
+interface BxAddEditAlbumFormProps {
   album?: IAlbum;
   onClose: () => void;
   onError: () => void;
   onSuccess: () => void;
 }
 
-function BxAddEditAlbum({
+function BxAddEditAlbumForm({
   album,
   onClose,
   onError,
   onSuccess,
-}: BxAddEditAlbumProps) {
+}: BxAddEditAlbumFormProps) {
   const { userId } = useAuth() as { userId: string };
 
   const [formData, setFormData] = useState<IAlbumAddEditFormData>({
@@ -96,16 +96,16 @@ function BxAddEditAlbum({
 
         if (isEditing && album) {
           await updateAlbum({
+            albumId: album._id,
             data: {
               ...submitData,
-              artistClerkId: album.artistClerkId,
+              clerkId: album.clerkId,
             },
-            id: album._id,
           }).unwrap();
         } else {
           await createAlbum({
             ...submitData,
-            artistClerkId: userId,
+            clerkId: userId,
           }).unwrap();
         }
 
@@ -208,4 +208,4 @@ function BxAddEditAlbum({
   );
 }
 
-export default BxAddEditAlbum;
+export default BxAddEditAlbumForm;
