@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { API_BASE_URL } from '@shared-src/lib/constants';
+import { getBaseUrl } from '@frontend-src/lib/utils/fxGetBaseUrl';
 
-const apiRootPort = import.meta.env.VITE_API_ROOT_PORT as string;
-const apiRootUrl = import.meta.env.VITE_API_ROOT_URL as string;
-const baseUrl = `${apiRootUrl}:${apiRootPort}${API_BASE_URL}`;
+const { baseUrl } = getBaseUrl();
 
 const fetchWithoutAuth = async (url: string): Promise<unknown> => {
   const response = await fetch(url);
