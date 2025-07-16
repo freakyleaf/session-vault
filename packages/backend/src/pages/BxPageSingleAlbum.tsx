@@ -129,7 +129,7 @@ function BxPageSingleAlbum() {
         onHide={handleDialogOnHide}
         visible={dialogVisible}
       >
-        <BxAddEditAlbum
+        <BxAddEditAlbumForm
           album={selectedAlbum}
           onClose={handleCloseDialog}
           onError={handleAlbumError}

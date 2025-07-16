@@ -9,19 +9,19 @@ import {
 
 import type { IAlbum, IAlbumAddEditFormData } from '@shared-src/lib/interfaces';
 
-interface BxAddEditAlbumProps {
+interface BxAddEditAlbumFormProps {
   album?: IAlbum;
   onClose: () => void;
   onError: () => void;
   onSuccess: () => void;
 }
 
-function BxAddEditAlbum({
+function BxAddEditAlbumForm({
   album,
   onClose,
   onError,
   onSuccess,
-}: BxAddEditAlbumProps) {
+}: BxAddEditAlbumFormProps) {
   const { userId } = useAuth() as { userId: string };
 
   const [formData, setFormData] = useState<IAlbumAddEditFormData>({
@@ -201,4 +201,4 @@ function BxAddEditAlbum({
   );
 }
 
-export default BxAddEditAlbum;
+export default BxAddEditAlbumForm;
