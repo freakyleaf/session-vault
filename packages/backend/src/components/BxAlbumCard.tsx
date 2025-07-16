@@ -55,7 +55,7 @@ function BxAlbumCard({
           {isAdmin && (
             <tr>
               <th>Artist</th>
-              <td>{album.artistClerkId}</td>
+              <td>{album.clerkId}</td>
             </tr>
           )}
           <tr>

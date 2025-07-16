@@ -91,14 +91,14 @@ function BxAddEditAlbum({
           await updateAlbum({
             data: {
               ...submitData,
-              artistClerkId: album.artistClerkId,
+              clerkId: album.clerkId,
             },
             id: album._id,
           });
         } else {
           await createAlbum({
             ...submitData,
-            artistClerkId: userId,
+            clerkId: userId,
           });
         }
 

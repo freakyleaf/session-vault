@@ -33,11 +33,11 @@ albumRoutes.get(
       }
 
       const albums = await Album.find({
-        artistClerkId: userId,
+        clerkId: userId,
       });
 
       // const albums = await Album.find({
-      //   artistClerkId: userId,
+      //   clerkId: userId,
       // }).populate('songs');
 
       res.json(albums);
@@ -124,7 +124,7 @@ albumRoutes.post(
 
       const albumData = {
         ...body,
-        artistClerkId: userId, // Always set to current user
+        clerkId: userId, // Always set to current user
       };
 
       const album = new Album(albumData);

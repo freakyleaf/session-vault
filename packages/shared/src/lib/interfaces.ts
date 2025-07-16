@@ -20,7 +20,7 @@ export interface IAuthenticatedRequest extends Request {
 
 export interface IAlbum {
   _id: TId;
-  artistClerkId: TClerkId;
+  clerkId: TClerkId;
   createdAt: Date;
   isPublic: TIsPublic;
   releaseDate: TReleaseDate;
@@ -42,5 +42,5 @@ export interface ISong {
 }
 
 export interface ICreateUpdateAlbumRequest extends IAlbumAddEditFormData {
-  artistClerkId: TClerkId;
+  clerkId: TClerkId;
 }
