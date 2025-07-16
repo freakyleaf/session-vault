@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 import type { Toast } from 'primereact/toast';
-import type { TToastSeverity } from '@shared-root/src/lib/types';
+import type { TToastSeverity } from '@shared-src/lib/types';
 
 export interface ToastContextType {
   showError: (message: string) => void;

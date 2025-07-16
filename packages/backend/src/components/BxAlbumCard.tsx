@@ -6,7 +6,7 @@ import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
 
 import { VIEW_TYPE_ALL } from '@shared-src/lib/constants';
 
-import type { TReleaseDate, TViewType } from '@shared-root/src/lib/types';
+import type { TReleaseDate, TViewType } from '@shared-src/lib/types';
 import type { IAlbum } from '@shared-src/lib/interfaces';
 
 interface BxAlbumCardProps {

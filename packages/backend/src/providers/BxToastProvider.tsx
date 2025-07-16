@@ -5,11 +5,11 @@ import {
   TOAST_SEVERITY_INFO,
   TOAST_SEVERITY_SUCCESS,
   TOAST_SEVERITY_WARNING,
-} from '@shared-root/src/lib/constants';
+} from '@shared-src/lib/constants';
 
 import type { ReactNode } from 'react';
 import type { Toast } from 'primereact/toast';
-import type { TToastSeverity } from '@shared-root/src/lib/types';
+import type { TToastSeverity } from '@shared-src/lib/types';
 
 interface ToastProviderProps {
   children: ReactNode;
