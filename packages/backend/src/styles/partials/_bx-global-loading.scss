@@ -1,0 +1,6 @@
+@use '@shared-styles/utils/sx-extends' as *;
+
+.bx-global-loading {
+  @extend %flex-center;
+  @extend %parent-cover;
+}

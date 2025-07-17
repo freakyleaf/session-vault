@@ -1,15 +1,23 @@
 @use 'sass:color';
 @use '@shared-styles/variables/sx-colors' as *;
+@use '@shared-styles/variables/sx-sizes' as *;
 
 .bx-layout {
   display: flex;
   flex-direction: column;
   background-attachment: fixed;
-  background-image: linear-gradient(to bottom, color.adjust($color-primary, $lightness: 35%), transparent);
+  background-image: linear-gradient(
+    to bottom,
+    color.adjust($color-primary, $lightness: 35%),
+    transparent
+  );
   background-repeat: no-repeat;
   background-size: 100% 35rem;
 }
 
 .bx-layout__main {
+  position: relative; // Required for absolute positioning of .bx-global-loading
   flex-grow: 1;
+  padding-top: $size-3;
+  padding-bottom: $size-3;
 }
