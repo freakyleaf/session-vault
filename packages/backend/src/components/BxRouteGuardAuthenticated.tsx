@@ -1,12 +1,15 @@
 import { Outlet } from 'react-router';
 import { useAuth } from '@clerk/clerk-react';
 
+import { useLoadingStore } from '@backend-src/stores/bxLoadingStore';
+
 function BxRouteGuardAuthenticated() {
   const { isLoaded, isSignedIn } = useAuth();
+  const { setIsGlobalLoading } = useLoadingStore();
 
-  if (!isLoaded) {
-    return <SxProgressSpinner />;
-  }
+  useEffect(() => {
+    setIsGlobalLoading(!isLoaded);
+  }, [isLoaded, setIsGlobalLoading]);
 
   if (!isSignedIn) {
     return <BxAccessDenied />;

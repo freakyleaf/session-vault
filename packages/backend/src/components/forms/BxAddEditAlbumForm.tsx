@@ -2,27 +2,32 @@ import { useAuth } from '@clerk/clerk-react';
 
 import { Button } from 'primereact/button';
 
+import { useAlbumMutations } from '@backend-src/hooks/mutations/bxUseAlbumMutations';
+
 import {
   INPUT_TYPE_CALENDAR,
   INPUT_TYPE_TEXT,
 } from '@shared-src/lib/constants';
 
 import type { IAlbum, IAlbumAddEditFormData } from '@shared-src/lib/interfaces';
+import type { TId } from '@shared-src/lib/types';
 
 interface BxAddEditAlbumFormProps {
   album?: IAlbum;
-  onClose: () => void;
-  onError: () => void;
-  onSuccess: () => void;
+  isModalForm: boolean;
+  onClose?: () => void;
+  onError?: () => void;
+  onSuccess?: () => void;
 }
 
 function BxAddEditAlbumForm({
   album,
+  isModalForm,
   onClose,
   onError,
   onSuccess,
 }: BxAddEditAlbumFormProps) {
-  const { userId } = useAuth() as { userId: string };
+  const { userId } = useAuth() as { userId: TId };
 
   const [formData, setFormData] = useState<IAlbumAddEditFormData>({
     isPublic: false,
@@ -30,14 +35,9 @@ function BxAddEditAlbumForm({
     title: '',
   });
 
-  const { mutateAsync: createAlbum, isPending: isCreating } = useCreateAlbum();
-  const { mutateAsync: updateAlbum, isPending: isUpdating } = useUpdateAlbum();
+  const { createAlbum, updateAlbum } = useAlbumMutations();
 
   const isEditing = useMemo(() => Boolean(album), [album]);
-  const isLoading = useMemo(
-    () => isCreating || isUpdating,
-    [isCreating, isUpdating],
-  );
   const isValid = useMemo(
     () => formData.title.trim().length > 0,
     [formData.title],
@@ -75,8 +75,8 @@ function BxAddEditAlbumForm({
   );
 
   const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
+    async (event: React.FormEvent) => {
+      event.preventDefault();
 
       if (!isValid) return;
 
@@ -87,26 +87,34 @@ function BxAddEditAlbumForm({
           title: formData.title,
         };
 
-        if (isEditing && album) {
+        if (album && isEditing) {
           await updateAlbum({
+            _id: album._id,
             data: {
               ...submitData,
               clerkId: album.clerkId,
             },
-            id: album._id,
           });
         } else {
           await createAlbum({
-            ...submitData,
-            clerkId: userId,
+            data: {
+              ...submitData,
+              clerkId: userId,
+            },
           });
         }
 
-        onSuccess();
-        onClose();
-      } catch (error) {
-        console.error('Error submitting album:', error);
-        onError();
+        if (onSuccess) {
+          onSuccess();
+        }
+
+        if (isModalForm && onClose) {
+          onClose();
+        }
+      } catch {
+        if (onError) {
+          onError();
+        }
       }
     },
     [
@@ -114,6 +122,7 @@ function BxAddEditAlbumForm({
       createAlbum,
       formData,
       isEditing,
+      isModalForm,
       isValid,
       onClose,
       onError,
@@ -145,59 +154,59 @@ function BxAddEditAlbumForm({
   );
 
   return (
-    <div className="bx-dialog-content">
-      <form
-        onSubmit={(event) => {
-          void handleSubmit(event);
-        }}
-      >
-        <BxFormInput
-          className="mb-5"
-          id="input-album-title"
-          label="Album Title"
-          name="album-title"
-          onChange={handleTitleChange}
-          required
-          type={INPUT_TYPE_TEXT}
-          value={formData.title}
-        />
+    <form
+      className="bx-form"
+      onSubmit={(event) => {
+        void handleSubmit(event);
+      }}
+    >
+      <BxFormInput
+        className="mb-5"
+        id="input-album-title"
+        label="Album Title"
+        name="album-title"
+        onChange={handleTitleChange}
+        required
+        type={INPUT_TYPE_TEXT}
+        value={formData.title}
+      />
 
-        <BxFormInput
-          className="mb-5"
-          helper="Leave blank if the album doesn't currently have a release date."
-          id="input-album-release-date"
-          label="Album Release Date"
-          name="album-release-date"
-          onChange={handleReleaseDateChange}
-          type={INPUT_TYPE_CALENDAR}
-          value={formData.releaseDate}
-        />
+      <BxFormInput
+        className="mb-5"
+        helper="Leave blank if the album doesn't currently have a release date."
+        id="input-album-release-date"
+        label="Album Release Date"
+        name="album-release-date"
+        onChange={handleReleaseDateChange}
+        type={INPUT_TYPE_CALENDAR}
+        value={formData.releaseDate}
+      />
 
-        <BxFormToggle
-          checked={formData.isPublic}
-          helper="Leave unchecked if the album should be hidden from public view."
-          id="input-album-is-public"
-          label="Is Public"
-          name="album-is-public"
-          onChange={handleIsPublicChange}
-        />
+      <BxFormToggle
+        checked={formData.isPublic}
+        helper="Leave unchecked if the album should be hidden from public view."
+        id="input-album-is-public"
+        label="Is Public"
+        name="album-is-public"
+        onChange={handleIsPublicChange}
+      />
 
-        <div className="bx-dialog-content__footer">
+      <div className="bx-form__footer">
+        {isModalForm && (
           <Button
-            label="Cancel"
+            label="Close"
             onClick={onClose}
             severity="secondary"
             type="button"
           />
-          <Button
-            disabled={!isValid || isLoading}
-            label={isEditing ? 'Update Album' : 'Add Album'}
-            loading={isLoading}
-            type="submit"
-          />
-        </div>
-      </form>
-    </div>
+        )}
+        <Button
+          disabled={!isValid}
+          label={isEditing ? 'Update Album' : 'Add Album'}
+          type="submit"
+        />
+      </div>
+    </form>
   );
 }
 

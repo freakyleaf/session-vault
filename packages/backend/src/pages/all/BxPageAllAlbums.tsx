@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from 'framer-motion';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 import { Button } from 'primereact/button';
@@ -6,8 +5,14 @@ import { Dialog } from 'primereact/dialog';
 import { Messages } from 'primereact/messages';
 import { Toolbar } from 'primereact/toolbar';
 
-import { useAlbumOperations } from '@backend-src/hooks/bxUseAlbumOperations';
+import {
+  useGetAllAdminAlbums,
+  useGetAllArtistAlbums,
+} from '@backend-src/hooks/queries/bxUseAlbumQueries';
+
+import { useAlbumMutations } from '@backend-src/hooks/mutations/bxUseAlbumMutations';
 import { useClerkAuth } from '@backend-src/hooks/bxUseClerkAuth';
+import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
 import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
 import { useToast } from '@backend-src/hooks/bxUseToast';
 
@@ -16,11 +21,7 @@ import {
   configDialogDefaultValues,
 } from '@shared-src/lib/config';
 
-import {
-  STYLE_TRANSITION_DURATION,
-  STYLE_TRANSITION_EASE,
-  VIEW_TYPE_ALL,
-} from '@shared-src/lib/constants';
+import { VIEW_TYPE_ALL } from '@shared-src/lib/constants';
 
 import type { IAlbum } from '@shared-src/lib/interfaces';
 import type { MessagesMessage } from 'primereact/messages';
@@ -34,8 +35,9 @@ function BxPageAllAlbums() {
     undefined,
   );
 
-  const { showError } = useToast();
   const messages = useRef<Messages>(null);
+  const { isAdmin } = useClerkUserRole();
+  const { showErrorToast } = useToast();
 
   const messageNoAlbumsFound: MessagesMessage = useMemo(
     () => ({
@@ -47,26 +49,27 @@ function BxPageAllAlbums() {
     [],
   );
 
-  const {
-    allAlbumsData,
-    allAlbumsStateError,
-    allAlbumsStateLoading,
-    handleSingleAlbumActionDelete,
-    handleSingleAlbumStateError,
-    handleSingleAlbumStateSuccess,
-    singleAlbumStateDeleting,
-  } = useAlbumOperations();
+  const { data: adminAlbumsData, error: adminAlbumsError } =
+    useGetAllAdminAlbums({ isEnabled: isAdmin });
+  const { data: artistAlbumsData, error: artistAlbumsError } =
+    useGetAllArtistAlbums({ isEnabled: !isAdmin });
+
+  const allAlbumsData = isAdmin ? adminAlbumsData : artistAlbumsData;
+  const allAlbumsStateError = isAdmin ? adminAlbumsError : artistAlbumsError;
+
+  const { deleteAlbum } = useAlbumMutations();
+  const [singleAlbumStateDeleting, setSingleAlbumStateDeleting] = useState<
+    string | null
+  >(null);
 
   const hasAlbums = useMemo(
     () => allAlbumsData && allAlbumsData.length > 0,
     [allAlbumsData],
   );
 
-  const isEditing = useMemo(() => Boolean(selectedAlbum), [selectedAlbum]);
-
   const showContent = useMemo(
-    () => !allAlbumsStateError && !allAlbumsStateLoading,
-    [allAlbumsStateError, allAlbumsStateLoading],
+    () => !allAlbumsStateError,
+    [allAlbumsStateError],
   );
 
   useEffect(() => {
@@ -81,38 +84,46 @@ function BxPageAllAlbums() {
 
   useEffect(() => {
     if (allAlbumsStateError) {
-      showError('Failed to load albums');
+      showErrorToast('Failed to load albums');
     }
-  }, [allAlbumsStateError, showError]);
+  }, [allAlbumsStateError, showErrorToast]);
 
   const handleAddAlbum = useCallback(() => {
     setDialogVisible(true);
     setSelectedAlbum(undefined);
   }, []);
 
-  const handleAlbumError = useCallback(() => {
-    handleSingleAlbumStateError(isEditing);
-  }, [handleSingleAlbumStateError, isEditing]);
-
   const handleCloseDialog = useCallback(() => {
     setDialogVisible(false);
     setSelectedAlbum(undefined);
   }, []);
+
+  const handleAlbumSuccess = useCallback(() => {
+    if (messages.current) {
+      messages.current.remove(messageNoAlbumsFound);
+    }
+    handleCloseDialog();
+  }, [handleCloseDialog, messageNoAlbumsFound]);
 
   const handleDeleteAlbum = useCallback(
     (album: IAlbum) => {
       confirmDialog({
         ...configConfirmDialogDefaultValues,
         accept: () => {
-          handleSingleAlbumActionDelete(album).catch(() => {
-            showError('Failed to delete album');
-          });
+          setSingleAlbumStateDeleting(album._id);
+          deleteAlbum(album._id)
+            .then(() => {
+              setSingleAlbumStateDeleting(null);
+            })
+            .catch(() => {
+              setSingleAlbumStateDeleting(null);
+            });
         },
         header: 'Confirm Delete',
         message: `Are you sure you want to delete the album '${album.title}'?`,
       });
     },
-    [handleSingleAlbumActionDelete, showError],
+    [deleteAlbum],
   );
 
   const handleDialogOnHide = useCallback(() => {
@@ -124,13 +135,6 @@ function BxPageAllAlbums() {
     setDialogVisible(true);
     setSelectedAlbum(album);
   }, []);
-
-  const handleSingleAlbumStateSuccessWrapper = useCallback(async () => {
-    if (messages.current) {
-      messages.current.remove(messageNoAlbumsFound);
-    }
-    await handleSingleAlbumStateSuccess(isEditing);
-  }, [handleSingleAlbumStateSuccess, isEditing, messageNoAlbumsFound]);
 
   const toolbarEndContent = useMemo(
     () => (
@@ -162,40 +166,28 @@ function BxPageAllAlbums() {
 
     return (
       <ul className="bx-page-albums__list">
-        <AnimatePresence mode="popLayout">
-          {allAlbumsData.map((album, index) => (
-            <motion.li
-              animate={{ opacity: 1 }}
-              className={`bx-page-albums__list-item${
-                index !== allAlbumsData.length - 1 ? ' mb-3' : ''
-              }`}
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-              key={album._id}
-              layout
-              transition={{
-                duration: STYLE_TRANSITION_DURATION,
-                ease: STYLE_TRANSITION_EASE,
-              }}
-            >
-              <BxAlbumCard
-                album={album}
-                handleDeleteAlbum={handleDeleteAlbum}
-                handleEditAlbum={handleEditAlbum}
-                singleAlbumStateDeleting={singleAlbumStateDeleting}
-                viewType={VIEW_TYPE_ALL}
-              />
-            </motion.li>
-          ))}
-        </AnimatePresence>
+        {allAlbumsData.map((album: IAlbum, index: number) => (
+          <li
+            className={`bx-page-albums__list-item ${
+              index !== allAlbumsData.length - 1 ? 'mb-3' : ''
+            }`.trim()}
+            key={album._id}
+          >
+            <BxAlbumCard
+              album={album}
+              handleDeleteAlbum={handleDeleteAlbum}
+              handleEditAlbum={handleEditAlbum}
+              singleAlbumStateDeleting={singleAlbumStateDeleting === album._id}
+              viewType={VIEW_TYPE_ALL}
+            />
+          </li>
+        ))}
       </ul>
     );
   };
 
   return (
     <div className="bx-page bx-page--all-albums">
-      {allAlbumsStateLoading && <SxProgressSpinner />}
-
       {showContent && renderAlbumContent()}
 
       <Dialog
@@ -206,11 +198,9 @@ function BxPageAllAlbums() {
       >
         <BxAddEditAlbumForm
           album={selectedAlbum}
+          isModalForm={true}
           onClose={handleCloseDialog}
-          onError={handleAlbumError}
-          onSuccess={() => {
-            void handleSingleAlbumStateSuccessWrapper();
-          }}
+          onSuccess={handleAlbumSuccess}
         />
       </Dialog>
 

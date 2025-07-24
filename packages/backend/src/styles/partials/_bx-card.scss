@@ -1,18 +1,18 @@
 @use '@shared-styles/variables/sx-colors' as *;
 @use '@shared-styles/variables/sx-sizes' as *;
 
-.bx-album-card {
+.bx-card {
   padding: $size-3;
   background-color: $color-white;
   border: 1px solid $color-prime-menubar-border;
   border-radius: $size-menubar-border-radius;
 }
 
-.bx-album-card__heading {
+.bx-card__heading {
   margin-top: 0;
 }
 
-.bx-album-card__utility {
+.bx-card__utility {
   display: flex;
   justify-content: flex-end;
   gap: $size-gap-default;

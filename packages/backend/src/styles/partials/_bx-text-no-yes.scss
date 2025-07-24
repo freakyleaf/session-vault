@@ -1,0 +1,7 @@
+@use '@shared-styles/variables/sx-sizes' as *;
+
+.bx-text-no-yes {
+  display: inline-flex;
+  align-items: center;
+  gap: $size-2;
+}

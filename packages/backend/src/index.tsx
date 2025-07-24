@@ -30,7 +30,9 @@ createRoot(document.getElementById('root')!).render(
           publishableKey={PUBLISHABLE_KEY}
         >
           <BxToastProvider>
-            <BxAppBackend />
+            <BxArtistProvider>
+              <BxAppBackend />
+            </BxArtistProvider>
           </BxToastProvider>
         </ClerkProvider>
       </PrimeReactProvider>

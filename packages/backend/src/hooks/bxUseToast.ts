@@ -1,14 +1,12 @@
 import { createContext } from 'react';
 
 import type { Toast } from 'primereact/toast';
-import type { TToastSeverity } from '@shared-src/lib/types';
 
 export interface ToastContextType {
-  showError: (message: string) => void;
-  showInfo: (message: string) => void;
-  showSuccess: (message: string) => void;
-  showToast: (message: string, severity?: TToastSeverity) => void;
-  showWarning: (message: string) => void;
+  showErrorToast: (message: string) => void;
+  showInfoToast: (message: string) => void;
+  showSuccessToast: (message: string) => void;
+  showWarningToast: (message: string) => void;
   toast: React.RefObject<Toast>;
 }
 

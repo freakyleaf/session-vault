@@ -1,0 +1,12 @@
+@use '@backend-styles/variables/bx-font-families' as *;
+@use '@shared-styles/variables/sx-colors' as *;
+@use '@shared-styles/variables/sx-sizes' as *;
+
+.code {
+  font-family: $font-family-mono;
+
+  &--inline {
+    padding: $size-2;
+    background-color: $color-prime-menubar-background;
+  }
+}

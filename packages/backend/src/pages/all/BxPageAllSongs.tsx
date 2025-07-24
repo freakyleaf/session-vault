@@ -1,13 +1,13 @@
 import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
 
-function BxPageSongs() {
+function BxPageAllSongs() {
   usePageTitle('Songs');
 
   return (
-    <div className="bx-page bx-page--songs">
+    <div className="bx-page bx-page--all-songs">
       <h1>Songs</h1>
     </div>
   );
 }
 
-export default BxPageSongs;
+export default BxPageAllSongs;

@@ -1,9 +1,29 @@
+@use '@shared-styles/variables/sx-colors' as *;
+
 /* stylelint-disable selector-class-pattern */
+
+// Menubar
+
+.p-menubar {
+  background: $color-white;
+}
+
+// Messages
+
+.p-message {
+  transition: none !important;
+}
 
 // Password
 
 .p-password-input {
   width: 100%;
+}
+
+// Toolbar
+
+.p-toolbar {
+  background: $color-white;
 }
 
 /* stylelint-enable selector-class-pattern */

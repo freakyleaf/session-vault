@@ -3,8 +3,6 @@ import { Outlet } from 'react-router';
 import { useLoadingStore } from '@backend-src/stores/bxLoadingStore';
 
 function BxLayoutDefault() {
-  useArtistProfile();
-
   const { isGlobalLoading } = useLoadingStore();
 
   return (

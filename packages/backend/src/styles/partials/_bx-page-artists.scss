@@ -1,0 +1,5 @@
+@use '@shared-styles/utils/sx-extends' as *;
+
+.bx-page-artists__list {
+  @extend %list-reset;
+}

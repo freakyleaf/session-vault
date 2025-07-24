@@ -1,21 +1,22 @@
-import type { ReactNode } from 'react';
+import { Outlet } from 'react-router';
 
-interface BxAdminRouteGuardProps {
-  children: ReactNode;
-}
+import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
 
-function BxAdminRouteGuard({ children }: BxAdminRouteGuardProps) {
+import { useLoadingStore } from '@backend-src/stores/bxLoadingStore';
+
+function BxAdminRouteGuard() {
   const { isAdmin, isLoaded } = useClerkUserRole();
+  const { setIsGlobalLoading } = useLoadingStore();
 
-  if (!isLoaded) {
-    return <SxProgressSpinner />;
-  }
+  useEffect(() => {
+    setIsGlobalLoading(!isLoaded);
+  }, [isLoaded, setIsGlobalLoading]);
 
   if (!isAdmin) {
     return <BxAccessDenied />;
   }
 
-  return <>{children}</>;
+  return <Outlet />;
 }
 
 export default BxAdminRouteGuard;

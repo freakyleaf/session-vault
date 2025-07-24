@@ -1,13 +1,13 @@
 import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
 
-function BxPageSessions() {
+function BxPageAllSessions() {
   usePageTitle('Sessions');
 
   return (
-    <div className="bx-page bx-page--sessions">
+    <div className="bx-page bx-page--all-sessions">
       <h1>Sessions</h1>
     </div>
   );
 }
 
-export default BxPageSessions;
+export default BxPageAllSessions;

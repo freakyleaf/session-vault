@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
 
+import { useArtist } from '@backend-src/hooks/bxUseArtist';
 import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
 
 import type { MenuItem } from 'primereact/menuitem';
@@ -11,21 +12,14 @@ import type { MenuItem } from 'primereact/menuitem';
 function BxPageNavigation() {
   const navigate = useNavigate();
 
-  const { isAdmin } = useClerkUserRole();
+  const { artist } = useArtist();
+  const { isAdmin, isArtist } = useClerkUserRole();
   const { isSignedIn } = useAuth();
   const { signOut } = useClerk();
 
-  const globalMenuItems: MenuItem[] = [
-    {
-      command: () => {
-        void navigate('/');
-      },
-      icon: 'pi pi-home',
-      label: 'Home',
-    },
-  ];
+  const artistIsActive = artist?.isActive ?? false;
 
-  const authenticatedAdminMenuItems: MenuItem[] = [
+  const menuItemsAuthenticatedAdmin: MenuItem[] = [
     {
       command: () => {
         void navigate('/artists');
@@ -35,7 +29,7 @@ function BxPageNavigation() {
     },
   ];
 
-  const authenticatedGlobalMenuItems: MenuItem[] = [
+  const menuItemsAuthenticatedGlobal: MenuItem[] = [
     {
       command: () => {
         void navigate('/albums');
@@ -59,17 +53,48 @@ function BxPageNavigation() {
     },
   ];
 
-  let items: MenuItem[] = globalMenuItems;
+  const menuItemsAuthenticatedSettings: MenuItem[] = [
+    {
+      command: () => {
+        void navigate('/settings');
+      },
+      icon: 'pi pi-cog',
+      label: 'Settings',
+    },
+    {
+      command: () => {
+        void navigate('/settings/profile');
+      },
+      icon: 'pi pi-user',
+      label: 'Profile',
+    },
+  ];
+
+  const menuItemsUnauthenticatedGlobal: MenuItem[] = [
+    {
+      command: () => {
+        void navigate('/');
+      },
+      icon: 'pi pi-home',
+      label: 'Home',
+    },
+  ];
+
+  let items: MenuItem[] = menuItemsUnauthenticatedGlobal;
 
   if (isSignedIn) {
     if (isAdmin) {
       items = [
         ...items,
-        ...authenticatedAdminMenuItems,
-        ...authenticatedGlobalMenuItems,
+        ...menuItemsAuthenticatedAdmin,
+        ...menuItemsAuthenticatedGlobal,
       ];
-    } else {
-      items = [...items, ...authenticatedGlobalMenuItems];
+    } else if (isArtist && artistIsActive) {
+      items = [
+        ...items,
+        ...menuItemsAuthenticatedGlobal,
+        ...menuItemsAuthenticatedSettings,
+      ];
     }
   }
 

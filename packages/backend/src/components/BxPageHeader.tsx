@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 
 import { Tag } from 'primereact/tag';
 
+import { useClerkUserRole } from '@backend-src/hooks/bxUseClerkUserRole';
+
 import { WEBSITE_NAME } from '@shared-src/lib/constants';
 
 function BxPageHeaderContent() {

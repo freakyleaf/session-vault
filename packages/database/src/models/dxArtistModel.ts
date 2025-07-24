@@ -3,30 +3,39 @@ import mongoose from 'mongoose';
 import { MODEL_ARTIST } from '@shared-src/lib/constants';
 
 const artistSchema = new mongoose.Schema({
+  artistName: {
+    required: true,
+    trim: true,
+    type: String,
+    validate: {
+      message: 'artistName must be a non-empty string',
+      validator: (value: string) => value?.trim().length > 0,
+    },
+  },
+  clerkId: {
+    required: [true, 'clerkId is required'],
+    type: String,
+    validate: {
+      message: 'clerkId must be a non-empty string',
+      validator: (value: string) => value?.trim().length > 0,
+    },
+  },
   createdAt: {
     default: Date.now,
     type: Date,
   },
-  email: {
-    lowercase: true,
-    required: true,
-    type: String,
-    unique: true,
-  },
   isActive: {
     default: true,
     type: Boolean,
-  },
-  name: {
-    required: true,
-    trim: true,
-    type: String,
   },
   updatedAt: {
     default: Date.now,
     type: Date,
   },
 });
+
+// Add index for efficient queries by artist
+artistSchema.index({ clerkId: 1 });
 
 artistSchema.pre('save', function (next) {
   if (this.isModified() && !this.isNew) {

@@ -3,6 +3,9 @@ export const API_BASE_URL = '/api/v1';
 export const ENVIRONMENT_DEVELOPMENT = 'development';
 export const ENVIRONMENT_PRODUCTION = 'production';
 
+export const ID_TYPE_CLERK = 'clerkId';
+export const ID_TYPE_MONGO = 'mongoId';
+
 export const INPUT_TYPE_CALENDAR = 'calendar';
 export const INPUT_TYPE_EMAIL = 'email';
 export const INPUT_TYPE_NUMBER = 'number';
@@ -17,6 +20,9 @@ export const MODEL_USER = 'User';
 
 export const STYLE_TRANSITION_DURATION = 0.3; // Seconds
 export const STYLE_TRANSITION_EASE = 'easeInOut';
+
+export const TEXT_NO = 'No';
+export const TEXT_YES = 'Yes';
 
 export const TOAST_SEVERITY_ERROR = 'error';
 export const TOAST_SEVERITY_INFO = 'info';

@@ -1,7 +1,7 @@
 @use '@shared-styles/variables/sx-colors' as *;
 @use '@shared-styles/variables/sx-sizes' as *;
 
-.bx-dialog-content__footer {
+.bx-form__footer {
   display: flex;
   justify-content: flex-end;
   gap: $size-3;

@@ -1,12 +1,16 @@
-@use 'partials/bx-album-card';
-@use 'partials/bx-dialog-content';
+@use 'partials/bx-card';
+@use 'partials/bx-code';
+@use 'partials/bx-form';
 @use 'partials/bx-form-input';
 @use 'partials/bx-global-loading';
 @use 'partials/bx-layout';
+@use 'partials/bx-link';
 @use 'partials/bx-page-albums';
+@use 'partials/bx-page-artists';
 @use 'partials/bx-page-footer';
 @use 'partials/bx-page-header';
 @use 'partials/bx-sign-in';
 @use 'partials/bx-table';
+@use 'partials/bx-text-no-yes';
 
 @use 'vendors/bx-prime-react';

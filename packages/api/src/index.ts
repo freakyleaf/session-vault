@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import { connectDatabase } from '@database-src/lib/databaseConnection';
 
 import { albumRoutes } from '@api-src/routes/axAlbumRoutes';
+import { artistRoutes } from '@api-src/routes/axArtistRoutes';
 import { healthRoutes } from '@api-src/routes/axHealthRoutes';
 
 import {
@@ -49,6 +50,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Routes
 app.use(`${API_BASE_URL}/albums`, albumRoutes);
+app.use(`${API_BASE_URL}/artists`, artistRoutes);
 app.use(`${API_BASE_URL}/health`, healthRoutes);
 
 app.get('/', (_req, res) => {

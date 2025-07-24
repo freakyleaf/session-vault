@@ -37,28 +37,28 @@ export const BxToastProvider = ({ children }: ToastProviderProps) => {
     [],
   );
 
-  const showError = useCallback(
+  const showErrorToast = useCallback(
     (message: string) => {
       showToast(message, TOAST_SEVERITY_ERROR);
     },
     [showToast],
   );
 
-  const showInfo = useCallback(
+  const showInfoToast = useCallback(
     (message: string) => {
       showToast(message, TOAST_SEVERITY_INFO);
     },
     [showToast],
   );
 
-  const showSuccess = useCallback(
+  const showSuccessToast = useCallback(
     (message: string) => {
       showToast(message, TOAST_SEVERITY_SUCCESS);
     },
     [showToast],
   );
 
-  const showWarning = useCallback(
+  const showWarningToast = useCallback(
     (message: string) => {
       showToast(message, TOAST_SEVERITY_WARNING);
     },
@@ -67,14 +67,13 @@ export const BxToastProvider = ({ children }: ToastProviderProps) => {
 
   const contextValue = useMemo(
     () => ({
-      showError,
-      showInfo,
-      showSuccess,
-      showToast,
-      showWarning,
+      showErrorToast,
+      showInfoToast,
+      showSuccessToast,
+      showWarningToast,
       toast,
     }),
-    [showError, showInfo, showSuccess, showToast, showWarning],
+    [showErrorToast, showInfoToast, showSuccessToast, showWarningToast],
   );
 
   return (

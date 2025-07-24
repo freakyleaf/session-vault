@@ -1,20 +1,17 @@
 import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
+import { mountStoreDevtool  } from 'simple-zustand-devtools';
+
+import { ENVIRONMENT_DEVELOPMENT } from '@shared-root/src/lib/constants';
 
 import type { ILoadingStore } from '@shared-src/lib/interfaces';
 
-const useLoadingStore = create<ILoadingStore>()(
-  devtools(
-    (set) => ({
-      isGlobalLoading: true,
-      setIsGlobalLoading: (value) => set({ isGlobalLoading: value }),
-    }),
-    {
-      name: 'loading-store',
-    },
-  ),
-);
+const useLoadingStore = create<ILoadingStore>()((set) => ({
+  isGlobalLoading: false,
+  setIsGlobalLoading: (value) => set({ isGlobalLoading: value }),
+}));
 
-useLoadingStore.devtools.cleanup();
+if (process.env.NODE_ENV === ENVIRONMENT_DEVELOPMENT) {
+  mountStoreDevtool('Loading Store', useLoadingStore);
+}
 
 export { useLoadingStore };

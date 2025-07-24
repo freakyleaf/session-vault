@@ -4,8 +4,9 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 import { Dialog } from 'primereact/dialog';
 
-import { useAlbumOperations } from '@backend-src/hooks/bxUseAlbumOperations';
+import { useAlbumMutations } from '@backend-src/hooks/mutations/bxUseAlbumMutations';
 import { useClerkAuth } from '@backend-src/hooks/bxUseClerkAuth';
+import { useGetSingleAlbum } from '@backend-src/hooks/queries/bxUseAlbumQueries';
 import { usePageTitle } from '@backend-src/hooks/bxUsePageTitle';
 import { useToast } from '@backend-src/hooks/bxUseToast';
 
@@ -24,70 +25,57 @@ function BxPageSingleAlbum() {
 
   const navigate = useNavigate();
   const { id } = useParams();
-  const { showError } = useToast();
+  const { showErrorToast } = useToast();
 
   const [dialogVisible, setDialogVisible] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const [selectedAlbum, setSelectedAlbum] = useState<IAlbum | undefined>(
     undefined,
   );
 
-  const {
-    handleSingleAlbumActionDelete,
-    handleSingleAlbumStateError,
-    handleSingleAlbumStateSuccess,
-    singleAlbumData,
-    singleAlbumStateDeleting,
-    singleAlbumStateError,
-    singleAlbumStateLoading,
-  } = useAlbumOperations({ albumId: id });
-
-  const isEditing = useMemo(() => Boolean(selectedAlbum), [selectedAlbum]);
+  const { data: singleAlbumData, error: singleAlbumStateError } =
+    useGetSingleAlbum({ id: id! });
+  const { deleteAlbum } = useAlbumMutations();
+  const [singleAlbumStateDeleting, setSingleAlbumStateDeleting] = useState<
+    string | null
+  >(null);
 
   const showContent = useMemo(
-    () => !singleAlbumStateError && !singleAlbumStateLoading,
-    [singleAlbumStateError, singleAlbumStateLoading],
+    () => !singleAlbumStateError,
+    [singleAlbumStateError],
   );
 
-  useEffect(() => {
-    if (singleAlbumStateError && !isDeleting) {
-      showError('Failed to load album');
-    }
-  }, [isDeleting, showError, singleAlbumStateError]);
-
   const handleAlbumError = useCallback(() => {
-    handleSingleAlbumStateError(isEditing);
-  }, [handleSingleAlbumStateError, isEditing]);
-
-  const handleAlbumSuccess = useCallback(async () => {
-    await handleSingleAlbumStateSuccess(isEditing);
-  }, [handleSingleAlbumStateSuccess, isEditing]);
+    showErrorToast('Failed to save album');
+  }, [showErrorToast]);
 
   const handleCloseDialog = useCallback(() => {
     setDialogVisible(false);
     setSelectedAlbum(undefined);
   }, []);
 
+  const handleAlbumSuccess = useCallback(() => {
+    handleCloseDialog();
+  }, [handleCloseDialog]);
+
   const handleDeleteAlbum = useCallback(
     (album: IAlbum) => {
       confirmDialog({
         ...configConfirmDialogDefaultValues,
         accept: () => {
-          setIsDeleting(true);
-          handleSingleAlbumActionDelete(album)
+          setSingleAlbumStateDeleting(album._id);
+          deleteAlbum(album._id)
             .then(() => {
               void navigate('/albums');
             })
             .catch(() => {
-              setIsDeleting(false);
-              showError('Failed to delete album');
+              setSingleAlbumStateDeleting(null);
             });
         },
         header: 'Confirm Delete',
         message: `Are you sure you want to delete the album '${album.title}'?`,
       });
     },
-    [handleSingleAlbumActionDelete, navigate, showError],
+    [deleteAlbum, navigate],
   );
 
   const handleEditAlbum = useCallback((album: IAlbum) => {
@@ -110,7 +98,7 @@ function BxPageSingleAlbum() {
           album={singleAlbumData}
           handleDeleteAlbum={handleDeleteAlbum}
           handleEditAlbum={handleEditAlbum}
-          singleAlbumStateDeleting={singleAlbumStateDeleting}
+          singleAlbumStateDeleting={Boolean(singleAlbumStateDeleting)}
           viewType={VIEW_TYPE_SINGLE}
         />
       </>
@@ -119,8 +107,6 @@ function BxPageSingleAlbum() {
 
   return (
     <div className="bx-page bx-page--single-album">
-      {singleAlbumStateLoading && <SxProgressSpinner />}
-
       {showContent && renderAlbumContent()}
 
       <Dialog
@@ -131,11 +117,10 @@ function BxPageSingleAlbum() {
       >
         <BxAddEditAlbumForm
           album={selectedAlbum}
+          isModalForm={true}
           onClose={handleCloseDialog}
           onError={handleAlbumError}
-          onSuccess={() => {
-            void handleAlbumSuccess();
-          }}
+          onSuccess={handleAlbumSuccess}
         />
       </Dialog>
 

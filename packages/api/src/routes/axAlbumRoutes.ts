@@ -19,7 +19,7 @@ const albumRoutes = express.Router();
 
 // Get all artist albums
 albumRoutes.get(
-  '/artist',
+  '/artist/all',
   clerkMiddleware(),
   async (req: IAuthenticatedRequest, res: Response): Promise<void> => {
     try {
@@ -54,7 +54,7 @@ albumRoutes.get(
 
 // Get all admin albums
 albumRoutes.get(
-  '/admin',
+  '/admin/all',
   clerkMiddleware(),
   checkUserRole([USER_ROLE_ADMIN]),
   async (_req: IAuthenticatedRequest, res: Response): Promise<void> => {
@@ -73,7 +73,7 @@ albumRoutes.get(
   },
 );
 
-// Get album by ID (owner or admin only)
+// Get album by MongoDB ID (owner or admin only)
 albumRoutes.get(
   '/:id',
   clerkMiddleware(),
