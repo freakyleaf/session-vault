@@ -11,11 +11,9 @@ export default defineConfig({
     AutoImport({
       dirs: [
         './src/components/**',
-        './src/hooks/**',
         './src/providers/**',
         './src/services/**',
         '../shared/src/components/**',
-        '../shared/src/hooks/**',
         '../shared/src/providers/**',
         '../shared/src/services/**',
       ],
