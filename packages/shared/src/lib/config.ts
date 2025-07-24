@@ -9,6 +9,7 @@ export const configConfirmDialogDefaultValues = {
 };
 
 export const configDialogDefaultValues = {
+  blockScroll: true,
   draggable: false,
   resizable: false,
   style: { width: '50vw' },
