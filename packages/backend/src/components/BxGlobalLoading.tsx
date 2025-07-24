@@ -1,3 +1,5 @@
+import { ProgressSpinner } from 'primereact/progressspinner';
+
 interface SxContainerProps {
   className?: string;
 }
@@ -5,7 +7,7 @@ interface SxContainerProps {
 function BxGlobalLoading({ className }: SxContainerProps) {
   return (
     <div className={`bx-global-loading ${className}`.trim()}>
-      <SxProgressSpinner />
+      <ProgressSpinner />
     </div>
   );
 }
