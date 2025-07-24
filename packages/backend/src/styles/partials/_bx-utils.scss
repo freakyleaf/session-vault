@@ -1,0 +1,5 @@
+@use '@shared-styles/utils/sx-extends' as *;
+
+.bx-text-overflow-ellipsis {
+  @extend %text-overflow-ellipsis;
+}
