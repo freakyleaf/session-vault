@@ -4,6 +4,7 @@
 /* stylelint-disable no-descending-specificity */
 
 .bx-table {
+  table-layout: fixed; // Required for text-overflow: ellipsis to work properly
   width: 100%;
   border: 1px solid $color-prime-menubar-border;
   border-collapse: collapse;
@@ -16,7 +17,6 @@
   }
 
   td {
-    width: 100%; // Make as wide as possible
     padding-left: 0;
   }
 
