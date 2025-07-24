@@ -42,11 +42,8 @@ export interface IArtist {
 }
 
 export interface IArtistStore {
-  artist: IArtist | null;
   artists: IArtist[] | null;
-  clearArtist: () => void;
   clearArtists: () => void;
-  setArtist: (value: IArtist) => void;
   setArtists: (value: IArtist[]) => void;
 }
 
