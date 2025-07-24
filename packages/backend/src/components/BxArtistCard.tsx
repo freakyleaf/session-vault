@@ -38,7 +38,9 @@ function BxArtistCard({
           <tr>
             <th>Clerk ID</th>
             <td>
-              <span className="code code--inline">{artist.clerkId}</span>
+              <span className="bx-code bx-code--inline bx-text-overflow-ellipsis">
+                {artist.clerkId}
+              </span>
             </td>
           </tr>
           <tr>

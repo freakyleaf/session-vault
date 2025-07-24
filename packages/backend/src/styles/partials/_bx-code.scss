@@ -2,7 +2,7 @@
 @use '@shared-styles/variables/sx-colors' as *;
 @use '@shared-styles/variables/sx-sizes' as *;
 
-.code {
+.bx-code {
   font-family: $font-family-mono;
 
   &--inline {
